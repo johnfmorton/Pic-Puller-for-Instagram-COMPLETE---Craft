@@ -1,0 +1,24 @@
+<div class="body">
+<style>
+	.pppreviewimage {
+		max-width: 100%;
+		margin: 0 auto;
+		display: block;
+		border: 1px solid #aaa;
+	}
+</style>
+	{% for igdata in media_recent %}
+		{% if igdata.video_low_resolution == '' %}
+		<p><img src="{{ igdata.low_resolution }}" class='pppreviewimage'></p>
+		{% else %}
+		<p>
+			<video controls poster="{{ igdata.low_resolution }}" class='pppreviewimage'>
+				<source src="{{ igdata.video_low_resolution }}" type="video/mp4">
+				  <img src="{{ igdata.low_resolution }}" class='pppreviewimage'>
+			</video>
+		</p>
+		{% endif %}
+		<p><em>Caption: </em>{{ igdata.caption }}</p>
+	{% endfor %}
+
+</div>

@@ -1,0 +1,22 @@
+h2.ppwarning {
+	color: red;
+}
+
+#status.pp {
+text-align: center;
+position: absolute;
+top: 110px;
+left: 120px;
+}
+
+#returnbt {
+	display: none;
+}
+
+/*.modal .footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	margin: 0;
+}*/

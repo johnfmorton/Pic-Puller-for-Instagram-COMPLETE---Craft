@@ -1,0 +1,21 @@
+{%- set ppBrowserType = (settings.ppBrowserType is defined ? settings.ppBrowserType : '0') -%}
+{#
+
+{{ dump(settings) }}
+
+#}
+<div class="field">
+    <div class="heading">
+        <div class="instructions">
+            <p>What type of Pic Puller image browser should this be:</p>
+        </div>
+    </div>
+    <div class="input">
+        <label>
+            {# <p>ppBrowserType: {{ppBrowserType}}</p> #}
+            <input type="radio" name='ppBrowserType' value="0" {%- if ppBrowserType == 0 %} checked{% endif %}> User's media stream<br>
+            <input type="radio" name='ppBrowserType' value="1" {%- if ppBrowserType == 1 %} checked{% endif %}> Search Instagram public images by tag<br>
+            <input type="radio" name='ppBrowserType' value="2" {%- if ppBrowserType == 2 %} checked{% endif %}> User stream + Search<br>
+        </label>
+    </div>
+</div>

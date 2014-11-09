@@ -1,0 +1,23 @@
+{% import "_includes/forms" as forms %}
+<h2>Customize settings</h2>
+
+{% if settings.shortname is not null %}
+
+{% set ppShort = settings.shortname|join %}
+
+{% else %}
+
+{% set ppShort = 'Pic Puller for Instagram' %}
+
+{% endif %}
+
+{{ forms.textField({
+            label: "Display name for <em>Pic Puller for Instagram</em>"|t,
+            instructions: "Update with a shorter name for use within the control panel. (Like \"PP\", \"Pic Puller\" or \"Instagram\")."|t,
+            id: 'shortname',
+            name: 'shortname',
+            value: ppShort,
+            autofocus: true,
+            required: true,
+            errors: ppShort ? 'Pic Puller for Instagram (default)' : null,
+        }) }}

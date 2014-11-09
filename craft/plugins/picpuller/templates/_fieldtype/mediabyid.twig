@@ -1,0 +1,30 @@
+{% header "Content-Type: application/json" %}
+{% for instagramdata in craft.picpuller.media({'user_id' : currentUser.id,  'use_stale_cache' : true, 'media_id': mediaId }) %}
+{% if instagramdata.status is defined and instagramdata.status == 'true' %}
+{% if loop.first %}
+{
+    "ppimages": [
+            {% endif %} {
+                "url": "{{instagramdata.low_resolution}}",
+                "video" : {% if instagramdata.video_low_resolution != '' %}1{% else %}0{% endif %},
+                "caption": "{{ instagramdata.caption }}",
+                "username": "{{ instagramdata.username }}",
+                "full_name": "{{ instagramdata.full_name }}",
+                "link": "{{ instagramdata.link }}"
+
+}{% if loop.last == false %},
+        {% endif %}
+
+{% if loop.last %}
+    ]
+}{% endif %}
+{% else %}
+{
+    "error": {
+        "code" : {{instagramdata.code}} ,
+        "error_type" : {{instagramdata.error_type}} ,
+        "message" : {{instagramdata.error_message}}
+    }
+}
+{% endif %}
+{% endfor %}
