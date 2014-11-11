@@ -48,31 +48,6 @@ class PicPuller_AppCreationService extends BaseApplicationComponent
         }
     }
 
-    /**
-     * Get the word "SOME" unless another $thing was defined.
-     *
-     * @param @thing an unneccesarry variable
-     */
-    // public function getSome($thing = null) {
-    //     if(is_null($thing)) {
-    //         $thing = "SOME";
-    //     }
-
-    //     return $thing;
-    // }
-
-    // public function testQuery() {
-
-    //     $existingOauth = craft()->db->createCommand()
-    //             ->select('id, instagram_id, oauth')
-    //             ->from('picpuller_oauths')
-    //             //->where(array('member_id=member_id', 'app_id=app_id'))
-    //             ->query();
-
-
-    //      return $existingOauth;
-    // }
-
     public function getCredentials() {
         $record = $this->credentialsRecord->find(array('limit'=>'1'));
         return PicPuller_CredentialsModel::populateModel($record);

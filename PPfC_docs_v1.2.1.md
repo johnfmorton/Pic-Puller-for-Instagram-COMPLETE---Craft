@@ -1,61 +1,65 @@
-# Documentation
+﻿# Pic Puller for Instagram Documentation
 
 ## Overview
 
-Pic Puller for Craft, a.k.a. PPfC, helps you set up your _own_ application with Instagram. That application will exist within your Craft CMS installation. Pic Puller walks you through the steps of creating the application, authorizing your Craft users via oAuth, and provides Craft tags for you to access the data that comes in from Instagram.
+**Pic Puller for Instagram** helps you create your _own_ Instagram application that will live within your Craft CMS installation. I then lets your Craft users authorize your site via oAuth to access their Instagram media. (There is an *ExpressionEngine* version of Pic Puller available at [https://devot-ee.com/add-ons/pic-puller-for-instagram](https://devot-ee.com/add-ons/pic-puller-for-instagram "Pic Puller for Instagram - Expression Engine").)
+
+Pic Puller provides Craft tags for you to access media from Instagram and includes a field type that allows authorized users to browse their personal media stream on Instagram and/or search the entire set of images and videos on Instagram by tag.
 
 ### Version History
 
 * Version 1.2.1
-	* Fixed issue where if you customized the Plugin name to be an empty string it was not defaulting back to the original plugin name.
-* Version 1.2
-	* Updated for consistent lanugage in app
-* Version 1.1
-	* Private beta release of PPfC
+	* Intial realse for sale
+	* Fixed issue where customized plug in names being blank did not default to the full name of the plug in.
+	* Cleaned up documentation
+* Version 1.2 (RC)
+	* Release candidate
+* Version 1.1 (beta)
+	* Initial release of Pic Puller
 
-### How to install Pic Puller for Craft
+### How to install Pic Puller for Instagram
 
-Copy the "picpuller" directory that sits alongside this file to your Craft site in the plugins directory. The path to that direction should be "craft/plugins/".
+Copy the "picpuller" directory to your Craft site in the plugins directory. The path to that direction should be "craft/plugins/". Next, log into your Craft control panel and visit the Settings page and select *"Plugins"*. You should see *"Pic Puller for Instagram"* listed among your plugins. You will need to click the "Install" button to the right of the line. Once installed, Pic Puller's status should be *"Enabled"*.
 
-Log into your control panel of Craft and visit the Settings page. From here, select "Plugins". You should see "Pic Puller" listed among your plugins. You will need to click the "Install" button to the right of the line. Once installed, Pic Puller's status should be "Enabled" automatically.
+Once installed, you will see *"Pic Puller for Instagram"* added to the top-level navigation in your control panel. Select "Pic Puller for Instagram" from the top-level navigation. (Note, you can change this to a shorter name in the settings. See **Pic Puller Options** at the end of this document.)
 
-Once PPfC is installed, you will see it added to the top-level navigation in your control panel. Select "Pic Puller" from the top-level navigation.
+### Creating your Instagram application
 
-### Setting up your own Instagram application
+You should now see the Pic Puller control panel with 3 sections: *Set Up*, *Active App Info* & *Authorized Users*.
 
-You should now see the PPfC control panel with 3 sections: Set Up, Active App Info & Authorized Users.
+In the *Set Up* section, follow the onscreen instructions to set up your Instagram application.
 
-In the Set Up section, follow the onscreen instructions to set up your Instagram application.
-
-The basic workflow will take you to Instagram to set up an application. PPfC provides you with an oAuth url that Instagram will ask for. Once the application is created within the Instagram developer area, you will take the Client ID and Client Secret put them into the PPfC Set Up screen and save them.
+Here is the basic workflow. Pic Puller will take you to Instagram to set up an application. Pic Puller provides you with an oAuth url that Instagram will ask for. Once the application is created within the Instagram developer area, you will take the Client ID and Client Secret provided by Instagram put them into the Pic Puller Set Up screen and save them.
 
 You can then authorize your new Instagram application to access your Instagram media.
 
-### Other users and Pic Puller for Craft
+### Other users and Pic Puller for Instagram
 
-You are not limited to only one user with PPfC. If you have the "Users" package activated in Craft, other users can also authorize their accounts as well.
+You are not limited to only one user with Pic Puller. If you have purchased the "Craft Client" or "Craft Pro" package, i.e. the paid version of Craft, other users can also authorize their Instagram accounts as well. Pic Puller works without a the upgraded Craft CMS client but is limited to the one user granted by that version of the Craft software.
 
-Any "Admin" level user will be able to alter and delete the Pic Puller application.
+It's important to realize that any "Admin" level user will be able to alter and delete the Pic Puller application.
 
 Users that have not been granted "Admin" rights, can still access Pic Puller as long as you have granted them access under the "Users" tab. This can be done on a one-by-one basis under the "Users" tab, or on a more global scale if you set up User Groups and provide the group access to Pic Puller. These non-admin users will only have the ability to authorize and unauthorize your app. They will not be able to change or delete the app.
 
-## Working with Pic Puller for Craft in your templates
+## Working with Pic Puller for Instagram in your templates
 
-There are 7 different template functions available with PPfC.
+There are 7 different template functions available with Pic Puller.
 
 ### Popular Photos on Instagram
 
-#### craft.picpuller.popular
+*craft.picpuller.popular*
 
 Description: Get a list of what media is most popular at the moment.
 
 Instragram docs page for this function: [http://instagram.com/developer/endpoints/media/#get_media_popular](http://instagram.com/developer/endpoints/media/#get_media_popular "Instagram documentation for get_media_popular")
 
-**Required parameters: none**
+#### Required parameters
 
-**Optional parameters:**
+*none*
 
-limit: an integer for how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
+#### Optional parameters
+
+limit: an integer indicating how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
 
 use_stale_cache: BOOLEAN, either TRUE or FALSE (defaults to TRUE if undefined), to have Pic Puller use previously cached data returned in the event of an error in retrieving new data
 
@@ -98,7 +102,7 @@ resulting in valid data OR a string of "NoCodeReturned" indicating there was no 
 
 error_message: a string describing the error
 
-**Tags returned in an unsuccessful Craft loop:**
+#### Tags returned in an unsuccessful Craft loop:
 
 status: a BOOLEAN of FALSE (0) is returned when no data is returned from Instagram or there is no cache data to return
 
@@ -106,7 +110,7 @@ error_type: a single code word indicating the type of error (NoInstagramApp, Mis
 
 error_message: a string describing the error
 
-**Example template code:**
+#### Example template code:
 
 	{% for instagramdata in craft.picpuller.popular({'use_stale_cache' : true, 'limit': 20}) %}
 		{% if loop.first %}
@@ -124,18 +128,18 @@ error_message: a string describing the error
 
 ### User information
 
-#### craft.picpuller.user
+*craft.picpuller.user*
 
 Description: Get basic information about a user.
 
 Instragram docs page for this function:
 [http://instagram.com/developer/endpoints/users/#get_users](http://instagram.com/developer/endpoints/users/#get_users "Instagram documentation for get_users")
 
-**Required parameters:**
+#### Required parameters
 
 user_id: the Craft user id (not an Instagram user id)
 
-**Optional parameters:**
+#### Optional parameters
 
 use_stale_cache: BOOLEAN, either TRUE or FALSE (defaults to TRUE if undefined), to have Pic Puller use previously cached data returned in the event of an error in retrieving new data
 
@@ -167,7 +171,7 @@ resulting in valid data OR a string of "NoCodeReturned" indicating there was no 
 
 error_message: a string describing the error
 
-**Tags returned in an unsuccessful Craft loop:**
+#### Tags returned in an unsuccessful Craft loop:
 
 status: a BOOLEAN of FALSE (0) is returned when no data is returned from Instagram or there is no cache data to return
 
@@ -175,7 +179,7 @@ error_type: a single code word indicating the type of error (NoInstagramApp, Mis
 
 error_message: a string describing the error
 
-**Example template code:**
+#### Example template code:
 
 	{% for instagramdata in craft.picpuller.user({'use_stale_cache' : true, 'user_id' : 1 }) %}
 		<p>Status: {{ instagramdata.status }}</p>
@@ -194,20 +198,20 @@ error_message: a string describing the error
 
 ### User feed
 
-#### craft.picpuller.user_feed
+*craft.picpuller.user_feed*
 
 Description: See the authenticated user’s feed. Includes user photos and photos of other users the select user follows in single feed.
 
 Instragram docs page for this function:
 [http://instagram.com/developer/endpoints/users/#get_users_feed](http://instagram.com/developer/endpoints/users/#get_users_feed "Instagram documentaion for get_users_feed")
 
-**Required parameters:**
+#### Required parameters
 
 user_id: This is the ID number of an Craft user. (It is not the Instagram user id number.)
 
-**Optional parameters:**
+#### Optional parameters
 
-limit: an integer for how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
+limit: an integer indicating how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
 
 use_stale_cache: BOOLEAN, either TRUE or FALSE (defaults to TRUE if undefined), to have Pic Puller use previously cached data returned in the event of an error in retrieving new data
 
@@ -258,7 +262,7 @@ error_type: a string of "NoError" to indicate a successful call to the Instagram
 
 error_message: a string describing the error
 
-**Tags returned in an unsuccessful Craft loop:**
+#### Tags returned in an unsuccessful Craft loop:
 
 status: a BOOLEAN of FALSE (0) is returned when no data is returned from Instagram or there is no cache data to return
 
@@ -266,7 +270,7 @@ error_type: a single code word indicating the type of error (NoInstagramApp, Mis
 
 error_message: a string describing the error
 
-**Example template code:**
+#### Example template code:
 
 	{% for instagramdata in craft.picpuller.user_feed({'user_id' : 1,  'use_stale_cache' : true, 'limit': 20}) %}
 		{% if loop.first %}
@@ -288,19 +292,19 @@ error_message: a string describing the error
 
 ### Recent media
 
-#### craft.picpuller.media_recent
+*craft.picpuller.media_recent*
 
 Description: Get the most recent media published by a user.
 
 Instragram docs page for this function: [http://instagram.com/developer/endpoints/users/#get_users_media_recent](http://instagram.com/developer/endpoints/users/#get_users_media_recent "Instagram documentation for get_users_media_recent")
 
-**Required parameters:**
+#### Required parameters
 
 user_id: This is the ID number of an Craft user. (It is not the Instagram user id number.)
 
-**Optional parameters:**
+#### Optional parameters
 
-limit: an integer for how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
+limit: an integer indicating how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
 
 use_stale_cache: BOOLEAN, either TRUE or FALSE (defaults to TRUE if undefined), to have Pic Puller use previously cached data returned in the event of an error in retrieving new data
 
@@ -340,7 +344,7 @@ error_type: a string of "NoError" to indicate a successful call to the Instagram
 
 error_message: a string describing the error
 
-**Tags returned in an unsuccessful Craft loop:**
+#### Tags returned in an unsuccessful Craft loop:
 
 status: a BOOLEAN of FALSE (0) is returned when no data is returned from Instagram or there is no cache data to return
 
@@ -348,7 +352,7 @@ error_type: a single code word indicating the type of error (NoInstagramApp, Mis
 
 error_message: a string describing the error
 
-**Example template code:**
+#### Example template code:
 
 	{% for instagramdata in craft.picpuller.media_recent({'user_id' : 1,  'use_stale_cache' : true, 'limit': 20}) %}
 		{% if loop.first %}
@@ -375,19 +379,19 @@ error_message: a string describing the error
 
 ### Liked image feed
 
-#### craft.picpuller.user_liked
+*craft.picpuller.user_liked*
 
 Description: See the authenticated user’s list of media they’ve liked. Note that this list is ordered by the order in which the user liked the media. Private media is returned as long as the authenticated user has permission to view that media. Liked media lists are only available for the currently authenticated user.
 
 Instragram docs page for this function: [http://instagram.com/developer/endpoints/users/#get_users_liked_feed](http://instagram.com/developer/endpoints/users/#get_users_liked_feed "Instagram documentation for get_users_liked_photos")
 
-**Required parameters:**
+#### Required parameters
 
 user_id: This is the ID number of an Craft user. (It is not the Instagram user id number.)
 
-**Optional parameters:**
+#### Optional parameters
 
-limit: an integer for how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
+limit: an integer indicating how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
 
 use_stale_cache: BOOLEAN, either TRUE or FALSE (defaults to TRUE if undefined), to have Pic Puller use previously cached data returned in the event of an error in retrieving new data
 
@@ -437,7 +441,7 @@ error_type: a string of "NoError" to indicate a successful call to the Instagram
 
 error_message: a string describing the error
 
-**Tags returned in an unsuccessful Craft loop:**
+#### Tags returned in an unsuccessful Craft loop:
 
 status: a BOOLEAN of FALSE (0) is returned when no data is returned from Instagram or there is no cache data to return
 
@@ -445,7 +449,7 @@ error_type: a single code word indicating the type of error (NoInstagramApp, Mis
 
 error_message: a string describing the error
 
-**Example template code:**
+#### Example template code:
 
 	{% for instagramdata in craft.picpuller.user_liked({ 'user_id' : 1,  'use_stale_cache' : true, 'limit': 20 }) %}
 	    {% if loop.first %}
@@ -467,7 +471,7 @@ error_message: a string describing the error
 
 ### Media by tag
 
-#### craft.picpuller.tagged_media
+*craft.picpuller.tagged_media*
 
 Description:
 Get a list of recently tagged media. Note that this media is ordered by when the media was tagged with this tag, rather than the order it was posted.
@@ -477,13 +481,13 @@ For consistency amongst the tags used in Pic Puller, the Craft tags use ‘next_
 Instragram docs page for this function: [http://instagram.com/developer/endpoints/tags/#get_tags_media_recent]
 (http://instagram.com/developer/endpoints/tags/#get_tags_media_recent "Instagram documentation for get_tags_media_recent")
 
-**Required parameters:**
+#### Required parameters
 
 user_id: This is the ID number of an Craft user. (It is not the Instagram user id number.)
 
-**Optional parameters:**
+#### Optional parameters
 
-limit: an integer for how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
+limit: an integer indicating how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
 
 use_stale_cache: BOOLEAN, either TRUE or FALSE (defaults to TRUE if undefined), to have Pic Puller use previously cached data returned in the event of an error in retrieving new data
 
@@ -533,7 +537,7 @@ error_type: a string of "NoError" to indicate a successful call to the Instagram
 
 error_message: a string describing the error
 
-**Tags returned in an unsuccessful Craft loop:**
+#### Tags returned in an unsuccessful Craft loop:
 
 status: a BOOLEAN of FALSE (0) is returned when no data is returned from Instagram or there is no cache data to return
 
@@ -541,7 +545,7 @@ error_type: a single code word indicating the type of error (NoInstagramApp, Mis
 
 error_message: a string describing the error
 
-**Example template code:**
+#### Example template code:
 
 	{% for instagramdata in craft.picpuller.tagged_media({'tag': 'cats', 'user_id' : 1,  'use_stale_cache' : true, 'limit': 20}) %}
 		{% if loop.first %}
@@ -564,19 +568,19 @@ error_message: a string describing the error
 
 ### Media by ID
 
-#### craft.picpuller.media
+*craft.picpuller.media*
 
 Description: Get information about a single media object.
 
 Instragram docs page for this function: [http://instagram.com/developer/endpoints/media/#get_media](http://instagram.com/developer/endpoints/media/#get_media "Instagram documenation for get_media")
 
-**Required parameters:**
+#### Required parameters
 
 user_id: This is the ID number of an Craft user. (It is not the Instagram user id number.)
 
 media_id: this is the ID number that Instagram has assigned to an image or video
 
-**Optional parameters:**
+#### Optional parameters
 
 use_stale_cache: BOOLEAN, either TRUE or FALSE (defaults to TRUE if undefined), to have Pic Puller use previously cached data returned in the event of an error in retrieving new data
 
@@ -620,7 +624,7 @@ error_type: a string of "NoError" to indicate a successful call to the Instagram
 
 error_message: a string describing the error
 
-**Tags returned in an unsuccessful Craft loop:**
+#### Tags returned in an unsuccessful Craft loop:
 
 status: a BOOLEAN of FALSE (0) is returned when no data is returned from Instagram or there is no cache data to return
 
@@ -628,7 +632,7 @@ error_type: a single code word indicating the type of error (NoInstagramApp, Mis
 
 error_message: a string describing the error
 
-**Example template code:**
+#### Example template code:
 
 	{% for instagramdata in craft.picpuller.media({'use_stale_cache' : TRUE, 'user_id' : 1, 'media_id': '423894109381331599_1500897'}) %}
 		{% if loop.first %}
@@ -648,3 +652,42 @@ error_message: a string describing the error
 			<p>Error Message: {{ instagramdata.error_message }}</p>
 		{% endif %}
 	{% endfor %}
+
+### Pic Puller Options
+
+#### Control Panel Widget
+
+Pic Puller includes a control panel widget that displays the most recent image from an authorized user's Instagram feed. It is added on a per user basis to the Dashboard home screen in the control panel.
+
+
+#### Customize the plug in name
+
+Seeing "Pic Puller for Instagram" in your global navigation can be a quite long. You can easily customize the name to be much shorter. You'll need to be an Admin to do this. It will affect all users.
+
+Click the gear icon and go to the Plugins page within the control panel.
+
+Now click the name of the plugin, Pic Puller for Instagram.
+
+Change it to whatever you like, "PP", "Pic Puller" or even just "Instagram". Then click Save. You will see the change immediately. If you leave the name blank, it will default back to the full name of the plugin.
+
+### Notes on the Instagram API
+
+#### API Limitations
+
+The Instagram API is really wonderful but it's not an all access pass into Instagram. There are many limits placed on the API. Here are a few that many people ask about in regard to Pic Puller.
+
+##### Rate limits
+
+Instagram limits the number of requests an application can make per hour. There are a variety of different limits. See [http://instagram.com/developer/limits/](http://instagram.com/developer/limits/ "Instagram developer documentation on API limits") for the full details. Pic Puller attempts to help you not care about these limits by caching every response you receive from Instagram. That means if you hit the limit on an especially busy day on a page that includes your Instagram feed, instead of displaying the error message from Instagram, your Craft template will render the _last successful feed_ for that call to the Instagram API. When the time limit has passed, it will start using the live feed from Instagram again. In addition to the caching supplied by the Pic Puller plugin, please use [Craft's built in template caching tags](http://buildwithcraft.com/docs/templating/cache "Craft documentation on caching"). Using the 2 in combination should keep your site running smoothly. For example, cache your template for at least 10 minutes at a time and it's likely you'll never exceed your Instagram API limit. 
+
+##### No complex queries
+
+The most common question received is around complex search queries. The short answer is that the Instagram API doesn't support them and therefore Pic Puller doesn't offer them. For example, the tag search allows for searching by a single tag only and only from the full Instagram set of media. You can't search for 2 tags or limit your search to a select set of accounts.  There are come clever workarounds in certain situations. If you'd like to discuss those, please drop me a line at john@johnfmorton.com. 
+
+##### Unexpected number of images returned
+
+The number of images returned from a Pic Puller loop can be up to 32 images in most cases, but it's not guaranteed. Why is that? It has to do with how the Instagram API returns data. Although I've not read it in official documentation, it appears whatever number of images you request are returned from the API and then that set of images is filtered for images that may have been deleted by users. For example, if I were pulling 3 images from my Instagram feed, I would expect 3 images returned in my Pic Puller loop in Craft. If I went into my Instagram app on my phone and deleted the most recent photo I've taken, I would then only receive 2 images back in my Craft site. 
+
+##### Unexpected order of images
+
+Order of images can be unexpected on Instagram. Tagged images are not ordered by when they were posted, but by when the tag was added to the image. Liked images are ordered also ordered by when they were liked, not when they were posted. 

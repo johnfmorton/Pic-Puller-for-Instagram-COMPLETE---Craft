@@ -23,7 +23,7 @@ You'll need to use FirePHP for Firefox or FirePHP4Chrome and look at your consol
 // \FB::error('Error message', 'Label');
 
 /**
- * Cocktail Recipes Service
+ * PicPuller Feed Reader Service
  *
  * Provides a consistent API for our plugin to access the database
  */
