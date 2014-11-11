@@ -41,6 +41,20 @@ It's important to realize that any "Admin" level user will be able to alter and 
 
 Users that have not been granted "Admin" rights, can still access Pic Puller as long as you have granted them access under the "Users" tab. This can be done on a one-by-one basis under the "Users" tab, or on a more global scale if you set up User Groups and provide the group access to Pic Puller. These non-admin users will only have the ability to authorize and unauthorize your app. They will not be able to change or delete the app.
 
+### Pic Puller Image Browser Fieldtype
+
+The Pic Puller Image Browser field type lets you browse an authorized user's media stream and/or search all of Instagram's public images by a tag.
+
+When setting up a Pic Puller select "Pic Puller for Instagram" from the Field Type dropdown.
+
+You will also have options that will affect how the field type will function for users who are creating entries. You can choose to let them search from their own media stream, let them use the just the search functionality, or give them access to both types of search.
+
+**What the field type does.**
+
+The field type searches Instagram to retrieve a media ID for an image or video uploaded through Instagram. The media ID is stored in the Craft database. The media file is not stored within your site. 
+
+The media ID is used in conjunction with the media by ID function in your templates to show media on your site. (See the **Media by ID** section of the documentation below.)
+
 ## Working with Pic Puller for Instagram in your templates
 
 There are 7 different template functions available with Pic Puller.
