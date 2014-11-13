@@ -17,7 +17,11 @@ Pic Puller provides Craft tags for you to access media from Instagram and includ
 * Version 1.1 (beta)
 	* Initial release of Pic Puller
 
+---
+
 ### How to install Pic Puller for Instagram
+
+![Setting page in Craft](screenshots-for-docs/picpuller_step_00.png)
 
 Copy the "picpuller" directory to your Craft site in the plugins directory. The path to that direction should be "craft/plugins/". Next, log into your Craft control panel and visit the Settings page and select *"Plugins"*. You should see *"Pic Puller for Instagram"* listed among your plugins. You will need to click the "Install" button to the right of the line. Once installed, Pic Puller's status should be *"Enabled"*.
 
@@ -30,6 +34,8 @@ You should now see the Pic Puller control panel with 3 sections: *Set Up*, *Acti
 In the *Set Up* section, follow the onscreen instructions to set up your Instagram application.
 
 Here is the basic workflow. Pic Puller will take you to Instagram to set up an application. Pic Puller provides you with an oAuth url that Instagram will ask for. Once the application is created within the Instagram developer area, you will take the Client ID and Client Secret provided by Instagram put them into the Pic Puller Set Up screen and save them.
+
+![The app screen on Instagram's dev site](screenshots-for-docs/picpuller_step_02.jpg)
 
 You can then authorize your new Instagram application to access your Instagram media.
 
@@ -47,9 +53,13 @@ The Pic Puller Image Browser field type lets you browse an authorized user's med
 
 When setting up a Pic Puller select "Pic Puller for Instagram" from the Field Type dropdown.
 
+![Options for a Pic Puller field](screenshots-for-docs/pp-fieldtype-options.png)
+
 You will also have options that will affect how the field type will function for users who are creating entries. You can choose to let them search from their own media stream, let them use the just the search functionality, or give them access to both types of search.
 
 **What the field type does.**
+
+![The Pic Puller browser](screenshots-for-docs/pp-screenshot.jpg)
 
 The field type searches Instagram to retrieve a media ID for an image or video uploaded through Instagram. The media ID is stored in the Craft database. The media file is not stored within your site. 
 
@@ -673,6 +683,8 @@ error_message: a string describing the error
 
 Pic Puller includes a control panel widget that displays the most recent image from an authorized user's Instagram feed. It is added on a per user basis to the Dashboard home screen in the control panel.
 
+![The Pic Puller widget](screenshots-for-docs/picpuller_step_07.jpg)
+
 
 #### Customize the plug in name
 
@@ -682,7 +694,11 @@ Click the gear icon and go to the Plugins page within the control panel.
 
 Now click the name of the plugin, Pic Puller for Instagram.
 
+![Create a new name](screenshots-for-docs/picpuller_step_09.png)
+
 Change it to whatever you like, "PP", "Pic Puller" or even just "Instagram". Then click Save. You will see the change immediately. If you leave the name blank, it will default back to the full name of the plugin.
+
+![Displaying the new name](screenshots-for-docs/picpuller_step_10.png)
 
 ### Notes on the Instagram API
 
