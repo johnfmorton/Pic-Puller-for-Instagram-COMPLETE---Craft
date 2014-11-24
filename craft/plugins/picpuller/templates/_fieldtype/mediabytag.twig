@@ -1,5 +1,15 @@
 {# http://craft.pp.dev/admin/picpuller/mediabytag/{{ searchTag }}/{{ nextMaxId }} #}
 {% header "Content-Type: application/json" %}
+
+{% set shareoauth = craft.picpuller.getShareOauthSetting %}
+
+{% if shareoauth == false %}
+    {% set pp_user = currentUser.id %}
+{% else %}
+    {% set pp_user = craft.picpuller.getSharedOauthUser %}
+{% endif %}
+
+
 {% if searchTag is not defined %}
 {# TO DO:  #}
 {# There was an error - return error message here #}
@@ -13,7 +23,7 @@
 {{ searchTag }}
 
  #}
-{% for instagramdata in craft.picpuller.tagged_media({'user_id' : currentUser.id, 'tag' :  searchTag , 'use_stale_cache' : true, 'limit': 30, 'max_id': nextmaxid }) %}
+{% for instagramdata in craft.picpuller.tagged_media({'user_id' : pp_user, 'tag' :  searchTag , 'use_stale_cache' : true, 'limit': 30, 'max_id': nextmaxid }) %}
 {% if instagramdata.status is defined and instagramdata.status == 'true' %}
 {% if loop.first %}
 {

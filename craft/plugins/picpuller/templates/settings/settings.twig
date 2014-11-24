@@ -1,3 +1,4 @@
+
 {% import "_includes/forms" as forms %}
 <h2>Customize settings</h2>
 
@@ -11,13 +12,71 @@
 
 {% endif %}
 
+{% if settings.shareoauth is not null %}
+
+{% set ppShareoauth = settings.shareoauth|join %}
+
+{% else %}
+
+{% set ppShareoauth = 0 %}
+
+{% endif %}
+
+{% set ppSharedoauthuser = settings.sharedoauthuser|join %}
+
+
+{# Get all admin level users only #}
+{% set users = craft.users.admin(1) %}
+
+{# Get all users, regardless of admin level - not used b/c only Admin level users are allows to be used as a master oAuth in Pic Puller when that option is selected. #}
+{# {% set users = craft.users() %} #}
+
+{% set ppShareuseroptions = { } %}
+
+{% for user in users %}
+    {% set tempUserName = user.username %}
+    {% set tempName = user.firstName ~ ' ' ~ user.lastName %}
+    {% if user.firstName|length or user.lastName|length %}
+        {% set tempUserName = tempUserName ~ " <em>(" ~ tempName ~ ")</em>" %}
+    {% endif %}
+    {% set tempUser = { "label": tempUserName, "value": user.id } %}
+    {% set ppShareuseroptions = ppShareuseroptions | merge ([tempUser]) %}
+{% endfor %}
+
 {{ forms.textField({
-            label: "Display name for <em>Pic Puller for Instagram</em>"|t,
-            instructions: "Update with a shorter name for use within the control panel. (Like \"PP\", \"Pic Puller\" or \"Instagram\")."|t,
-            id: 'shortname',
-            name: 'shortname',
-            value: ppShort,
-            autofocus: true,
-            required: true,
-            errors: ppShort ? 'Pic Puller for Instagram (default)' : null,
-        }) }}
+        label: "Display name for <em>Pic Puller for Instagram</em>"|t,
+        instructions: "Update with a shorter name for use within the control panel. (Like \"PP\", \"Pic Puller\" or \"Instagram\")."|t,
+        id: 'shortname',
+        name: 'shortname',
+        value: ppShort,
+        autofocus: true,
+        required: true,
+        errors: ppShort ? 'Pic Puller for Instagram' : null,
+    })
+}}
+
+<hr>
+
+{{ forms.lightswitchField({
+        label: "Let users share a single Instagram oAuth Authorization? <em>(default: off)</em>"|t,
+        instructions: "The normal behavior of Pic Puller is to have each user authorize with their own Instagram account. You may override this to share a single Instagram account across the entire Craft site."|t,
+        id: 'shareoauth',
+        name: 'shareoauth',
+        on: ppShareoauth,
+        autofocus: false,
+        required: false,
+        errors: ppShareoauth ? false : false
+    })
+}}
+
+{{ forms.radioGroupField({
+    label: "Select account for sharing oAuth. (Setting is ignored if setting above is <em>off</em>)."|t,
+    instructions: "If sharing a single oAuth, select an <strong>Admin</strong> user to serve as the user whose oAuth credentials will be used across the site for all users."|t,
+    options: ppShareuseroptions,
+    value: ppSharedoauthuser,
+    id: 'sharedoauthuser',
+    name: 'sharedoauthuser'
+    })
+}}
+
+<hr>

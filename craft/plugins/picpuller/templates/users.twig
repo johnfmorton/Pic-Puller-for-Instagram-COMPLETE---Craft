@@ -34,8 +34,14 @@
 
      #}
 
-    <p>There {{ userverb }} {{ users|length }} {{ userphrase }} who {{ userverb2 }} authorized this Instagram app.</p>
-
+    <p>There {{ userverb }} {{ users|length }} {{ userphrase }} who {{ userverb2 }} authorized this Instagram app.
+    {% set shareoauth = craft.picpuller.getShareOauthSetting() %}
+    {% if shareoauth == true  %}
+        Any “Admin” level user may authorize or deauthorize with Pic Puller and this authorization will be shared amongst all users of the site.
+        {% else %}
+        Each user must authenticate their individual Craft user account with an Instagram account to use Pic Puller.
+    {% endif %}
+    </p>
 
     <table class="data collapsible">
         <thead>

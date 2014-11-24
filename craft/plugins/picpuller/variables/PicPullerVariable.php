@@ -99,6 +99,23 @@ class PicPullerVariable
     }
 
     /**
+     * Return the setting for whether the oAuth should be shared across all Craft users
+     * @return BOOL The default is false indicating each user should authorize their own account
+     */
+    public function getShareOauthSetting() {
+        return craft()->plugins->getPlugin('picpuller')->getSettings()->shareoauth;
+    }
+
+    /**
+     * Return the setting for whether the oAuth should be shared across all Craft users
+     * @return BOOL The default is false indicating each user should authorize their own account
+     */
+    public function getSharedOauthUser() {
+        return craft()->plugins->getPlugin('picpuller')->getSettings()->sharedoauthuser;
+    }
+
+
+    /**
      * Does the application exist in the database
      * @return BOOL returns TRUE if there is an application saved in the database, or FALSE if not
      */

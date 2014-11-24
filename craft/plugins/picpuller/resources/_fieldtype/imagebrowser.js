@@ -1,7 +1,6 @@
 // console.log('Pic Puller JS loaded.');
 (function( $ ) {
 
-
     $.fn.imagebrowser = function() {
 		var picPullerModal;
 		var theButton = $(this.selector + '-field .btn');

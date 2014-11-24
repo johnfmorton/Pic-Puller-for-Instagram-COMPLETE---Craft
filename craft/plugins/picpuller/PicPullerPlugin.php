@@ -5,6 +5,8 @@ class PicPullerPlugin extends BasePlugin
 {
     function getName() {
         $shortname = $this->getSettings()->shortname;
+        // It should not be possible for the shortname to be empty,
+        // but PP checks for it in case something went wrong.
         if ( is_string($shortname) && !empty($shortname) ) {
             return $shortname;
         } else {
@@ -13,7 +15,7 @@ class PicPullerPlugin extends BasePlugin
     }
 
     function getVersion() {
-        return '1.2.1';
+        return '1.3.0';
     }
 
     function getDeveloper() {
@@ -28,7 +30,22 @@ class PicPullerPlugin extends BasePlugin
      * Has CP Section
      */
     public function hasCpSection() {
-        return true;
+        $admin = craft()->userSession->getUser()->admin;
+        $shareoauth = $this->getSettings()->shareoauth;
+        $masteroauthuser = $this->getSettings()->sharedoauthuser;
+
+        $thisUser = craft()->userSession->getUser()->id;
+        /*
+        If the user is not an admin, i.e. permission is false,
+        and the shareoauth is set to true, then we do not show
+        the global nav element for non-admin users because
+        there is nothing for them to do there.
+         */
+        if ($shareoauth && ($masteroauthuser !==  $thisUser) ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -37,20 +54,20 @@ class PicPullerPlugin extends BasePlugin
      */
     protected function defineSettings() {
         $params = '';
-        // return array(
-        //     'pp_settings' => array( AttributeType::Mixed, 'default' => array('Pic Puller for Instagram') ),
-        // );
 
         return array(
-            //'pp_settings' => array(AttributeType::Mixed, 'default' => array( 'PP', 'Sours', 'Fizzes', 'Juleps'), 'shortname' => 'PP'),
-            'shortname' => array(AttributeType::String, 'default' => array( 'Pic Puller for Instagram') )
+            'shortname' => array(AttributeType::String, 'default' => array( 'Pic Puller for Instagram') ),
+            'shareoauth' => array(AttributeType::Bool, 'default' => false),
+            'sharedoauthuser' =>array(AttributeType::Number, 'default' => 1)
         );
 
     }
 
     public function prepSettings( $settings ) {
-        // Modify $settings here...
-
+        // In case the shortname was empty, replace it with the default name
+        if ( empty($settings->shortname) ) {
+           $settings['shortname'] = 'Pic Puller for Instagram';
+        }
         return $settings;
     }
 
@@ -72,13 +89,7 @@ class PicPullerPlugin extends BasePlugin
         // There are 2 routes: 1st is with just the userId, 2nd w userId and nextMaxId
         // using (?P<nextMaxId>\S+) instead of (?P<nextMaxId>\d+) because nextMaxId may be a string "S" and not just digits "d"
         // The 2 routes for searching by tag are similar, they use (?P<tag>\S+) not (?P<tag>\d+) because the tag will be a string
-       //  return array(
-       //      'picpuller/mediarecent/(?P<userId>\d+)' => 'picpuller/_fieldtype/mediarecent',
-       //      'picpuller/mediarecent/(?P<userId>\d+)/(?P<nextMaxId>\S+)' => 'picpuller/_fieldtype/mediarecent',
-       //      'picpuller/mediabytag/(?P<searchTag>\S+)' => 'picpuller/_fieldtype/mediabytag',
-       //      'picpuller/mediabytag/(?P<searchTag>\S+)/(?P<nextMaxId>\S+)' => 'picpuller/_fieldtype/mediabytag',
-       //      'picpuller/mediabyid/(?P<userId>\d+)/(?P<mediaId>\S+)' => 'picpuller/_fieldtype/mediabyid'
-       // );
+
         return array(
             'picpuller/mediarecent' => 'picpuller/_fieldtype/mediarecent',
             'picpuller/mediarecent/(?P<nextMaxId>\S+)' => 'picpuller/_fieldtype/mediarecent',

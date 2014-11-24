@@ -1,5 +1,14 @@
 {% header "Content-Type: application/json" %}
-{% for instagramdata in craft.picpuller.media({'user_id' : currentUser.id,  'use_stale_cache' : true, 'media_id': mediaId }) %}
+
+{% set shareoauth = craft.picpuller.getShareOauthSetting %}
+
+{% if shareoauth == false %}
+    {% set pp_user = currentUser.id %}
+{% else %}
+    {% set pp_user = craft.picpuller.getSharedOauthUser %}
+{% endif %}
+
+{% for instagramdata in craft.picpuller.media({'user_id' : pp_user,  'use_stale_cache' : true, 'media_id': mediaId }) %}
 {% if instagramdata.status is defined and instagramdata.status == 'true' %}
 {% if loop.first %}
 {
