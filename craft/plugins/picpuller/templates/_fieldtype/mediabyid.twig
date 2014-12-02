@@ -16,9 +16,10 @@
             {% endif %} {
                 "url": "{{instagramdata.low_resolution}}",
                 "video" : {% if instagramdata.video_low_resolution != '' %}1{% else %}0{% endif %},
-                "caption": "{{ instagramdata.caption }}",
+                {# Since the caption and full name may contain line breaks, these are removed for use in the field type preview area b/c they break the JSON data when it is returned in this template #}
+                "caption": "{{ instagramdata.caption|replace({"\n":' ', "\r":' '}) }}",
                 "username": "{{ instagramdata.username }}",
-                "full_name": "{{ instagramdata.full_name }}",
+                "full_name": "{{ instagramdata.full_name|replace({"\n":' ', "\r":' '}) }}",
                 "link": "{{ instagramdata.link }}"
 
 }{% if loop.last == false %},
