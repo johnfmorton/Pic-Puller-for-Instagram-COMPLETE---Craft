@@ -16,6 +16,7 @@
 	{% set userphrase = "users" %}
 {% endif %}
 
+
 {% if ig_credentials is not defined %}
     {% set ig_credentials = craft.picpuller.getCredentials %}
 {% endif %}
@@ -34,12 +35,12 @@
 
      #}
 
-    <p>There {{ userverb }} {{ users|length }} {{ userphrase }} who {{ userverb2 }} authorized this Instagram app.
+    <p>
     {% set shareoauth = craft.picpuller.getShareOauthSetting() %}
     {% if shareoauth == true  %}
-        Any “Admin” level user may authorize or deauthorize with Pic Puller and this authorization will be shared amongst all users of the site.
+        If your account is shown below, your authorization will be shared amongst all users of the site. Change this preference in the Pic Puller plugin <a href="{{ craft.plugins.getPlugin('picpuller').getSettingsUrl }}" title='Pic Puller settings'>settings</a>.
         {% else %}
-        Each user must authenticate their individual Craft user account with an Instagram account to use Pic Puller.
+       There {{ userverb }} {{ users|length }} {{ userphrase }} who {{ userverb2 }} authorized this Instagram app. Each user must authenticate their individual Craft user account with an Instagram account to use Pic Puller.
     {% endif %}
     </p>
 
