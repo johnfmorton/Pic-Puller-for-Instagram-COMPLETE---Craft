@@ -65,7 +65,8 @@ class PicPullerPlugin extends BasePlugin
 
     public function prepSettings( $settings ) {
         // In case the shortname was empty, replace it with the default name
-        if ( empty($settings->shortname) ) {
+
+        if ( empty( $settings['shortname'] ) ) {
            $settings['shortname'] = 'Pic Puller for Instagram';
         }
         return $settings;
