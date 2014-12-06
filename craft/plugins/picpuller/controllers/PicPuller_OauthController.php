@@ -42,8 +42,6 @@ class PicPuller_OauthController extends BaseController
                 'ig_credentials' => $model
             ));
         }
-
-
     }
 
     /**
@@ -98,12 +96,19 @@ class PicPuller_OauthController extends BaseController
         if (isset($json->{'access_token'}) ){
             $model = new PicPuller_OauthModel();
 
-            $formattedReturnedData = [
+            $formattedReturnedData = array(
                 'app_id'=>$attributes['appId'],
                 'oauth'=>$json->{'access_token'},
                 'instagram_id'=>$json->{'user'}->id,
                 'member_id'=>$attributes['userId']
-            ];
+            );
+
+            // $formattedReturnedData = [
+            //     'app_id'=>$attributes['appId'],
+            //     'oauth'=>$json->{'access_token'},
+            //     'instagram_id'=>$json->{'user'}->id,
+            //     'member_id'=>$attributes['userId']
+            // ];
 
             $model->setAttributes($formattedReturnedData);
 
@@ -119,10 +124,13 @@ class PicPuller_OauthController extends BaseController
                 craft()->picPuller_appCreation->deleteOauthById($existingOauthId['id']);
             }
             // Now that we know we won't be creating a duplicate oAuth for this user with this
-            // app we will have the newly created model to the database
+            // app we will have the newly created model saved into the database
             if (craft()->picPuller_appCreation->saveOauth($model))
             {
-               $this->returnJson(['success' => true]);
+               //$this->returnJson( array('success' => true) );
+               // or, in long form, this would be...
+                $json->{'success'} = true;
+                $this->returnJson($json);
             }
             else
             {
