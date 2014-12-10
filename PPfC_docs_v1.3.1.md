@@ -219,7 +219,7 @@ website: the website URL provided by the user on Instagram
 
 full_name: the full name provided by the user on Instagram
 
-counts_media: the number of images in this user’s Instagram feed in total
+counts_media: the total number of images in this user’s Instagram feed
 
 counts_followed_by: the number of users who follow this user on Instagram
 
@@ -441,7 +441,7 @@ error_message: a string describing the error
 
 *craft.picpuller.user_liked*
 
-Description: See the authenticated user’s list of media they’ve liked. Note that this list is ordered by the order in which the user liked the media. Private media is returned as long as the authenticated user has permission to view that media. Liked media lists are only available for the currently authenticated user.
+Description: See the authenticated user’s list of media they’ve liked. Note that this list is ordered by the sequence in which the user liked the media. Private media is returned as long as the authenticated user has permission to view that media. Liked media lists are only available for the authenticated user.
 
 Instragram docs page for this function: [http://instagram.com/developer/endpoints/users/#get_users_liked_feed](http://instagram.com/developer/endpoints/users/#get_users_liked_feed "Instagram documentation for get_users_liked_photos")
 
@@ -724,7 +724,7 @@ Pic Puller includes a control panel widget that displays the most recent image f
 
 #### Customize the plug in name
 
-Seeing "Pic Puller for Instagram" in your global navigation can be a quite long. You can easily customize the name to be much shorter. You'll need to be an Admin to do this. It will affect all users.
+Seeing "Pic Puller for Instagram" in your global navigation can be a longer than you may want. You can easily customize the name to be much shorter. You'll need to be an Admin to do this. It will affect all users.
 
 Click the gear icon and go to the Plugins page within the control panel.
 
@@ -740,7 +740,7 @@ Change it to whatever you like, "PP", "Pic Puller" or even just "Instagram". The
 
 #### API Limitations
 
-The Instagram API is really wonderful but it's not an all access pass into Instagram. There are many limits placed on the API. Here are a few that many people ask about in regard to Pic Puller.
+The Instagram API is wonderful but it's not an all access pass into Instagram. There are many limits placed on the API. Here are a few that many people ask about in regard to Pic Puller.
 
 ##### Rate limits
 
