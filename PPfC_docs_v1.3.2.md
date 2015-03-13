@@ -20,6 +20,8 @@ Thanks - John
 
 ### Version History
 
+* Version 1.3.2 (March 12, 2015)
+	- The Instagram feed has removed "webiste" from all but the user API call. The "website" value has been removed from Pic Puller as well since it is no longer available.
 * Version 1.3.1 (Dec 6, 2014)
 	- Fixed various array syntax instances for compatibility with PHP 5.3
 	- Fixed error in "Lastest Instagram Image" widget that would cause errors when Instagram app was not authorized with Instagram
@@ -215,8 +217,6 @@ bio: biography information provided by the Instagram user
 
 profile_picture: URL to the profile image of the user
 
-website: the website URL provided by the user on Instagram
-
 full_name: the full name provided by the user on Instagram
 
 counts_media: the total number of images in this user’s Instagram feed
@@ -224,6 +224,8 @@ counts_media: the total number of images in this user’s Instagram feed
 counts_followed_by: the number of users who follow this user on Instagram
 
 counts_follows: the number of users this user follows on Instagram
+
+website: the website URL provided by the user whose account the image is from
 
 error_type: a string of "NoError" to indicate a successful call to the Instagram API
 
@@ -313,8 +315,6 @@ user_id: the Instagram user ID of the user whose account the image is from
 username: the Instagram username of the user whose account the image is from
 
 profile_picture: URL to the profile image of the user
-
-website: the website URL provided by the user whose account the image is from
 
 full_name: the full name provided by the user whose account the image is from
 
@@ -493,8 +493,6 @@ full_name: the full name provided by the user whose account the image is from
 
 profile_picture: URL to the profile image of the user
 
-website: the website URL provided by the user whose account the image is from
-
 user_id: the Instagram user ID of the user whose account the image is from
 
 error_type: a string of "NoError" to indicate a successful call to the Instagram API resulting in valid data OR a string of "NoCodeReturned" indicating there was no data returned from Instagram
@@ -588,8 +586,6 @@ user_id: the Instagram user ID of the user whose account the image is from
 username: the Instagram username of the user whose account the image is from
 
 profile_picture: URL to the profile image of the user
-
-website: the website URL provided by the user whose account the image is from
 
 full_name: the full name provided by the user whose account the image is from
 
