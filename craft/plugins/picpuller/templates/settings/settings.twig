@@ -1,4 +1,3 @@
-
 {% import "_includes/forms" as forms %}
 <h2>Customize settings</h2>
 
@@ -24,24 +23,7 @@
 
 {% set ppSharedoauthuser = settings.sharedoauthuser|join %}
 
-
-{# Get all admin level users only #}
-{% set users = craft.users.admin(1) %}
-
-{# Get all users, regardless of admin level - not used b/c only Admin level users are allows to be used as a master oAuth in Pic Puller when that option is selected. #}
-{# {% set users = craft.users() %} #}
-
 {% set ppShareuseroptions = { } %}
-
-{% for user in users %}
-    {% set tempUserName = user.username %}
-    {% set tempName = user.firstName ~ ' ' ~ user.lastName %}
-    {% if user.firstName|length or user.lastName|length %}
-        {% set tempUserName = tempUserName ~ " <em>(" ~ tempName ~ ")</em>" %}
-    {% endif %}
-    {% set tempUser = { "label": tempUserName, "value": user.id } %}
-    {% set ppShareuseroptions = ppShareuseroptions | merge ([tempUser]) %}
-{% endfor %}
 
 {{ forms.textField({
         label: "Display name for <em>Pic Puller for Instagram</em>"|t,
@@ -54,7 +36,8 @@
         errors: ppShort ? 'Pic Puller for Instagram' : null,
     })
 }}
-
+{# Is this a Craft Client Edition or Pro edition? If so, see if there is a shared Instagram account oAuth to be used. #}
+{% if craft.app.getEdition() != 0 %}
 <hr>
 
 {{ forms.lightswitchField({
@@ -69,6 +52,24 @@
     })
 }}
 
+{% endif %}
+
+{# Is this a Craft Pro edition? If so, get all the admin users. #}
+{% if craft.app.getEdition() == 2 %}
+
+{# Get all admin level users only #}
+{% set users = craft.users.admin(1) %}
+
+{% for user in users %}
+    {% set tempUserName = user.username %}
+    {% set tempName = user.firstName ~ ' ' ~ user.lastName %}
+    {% if user.firstName|length or user.lastName|length %}
+        {% set tempUserName = tempUserName ~ " <em>(" ~ tempName ~ ")</em>" %}
+    {% endif %}
+    {% set tempUser = { "label": tempUserName, "value": user.id } %}
+    {% set ppShareuseroptions = ppShareuseroptions | merge ([tempUser]) %}
+{% endfor %}
+
 {{ forms.radioGroupField({
     label: "Select account for sharing oAuth. (Setting is ignored if setting above is <em>off</em>)."|t,
     instructions: "If sharing a single oAuth, select an <strong>Admin</strong> user to serve as the user whose oAuth credentials will be used across the site for all users."|t,
@@ -78,5 +79,7 @@
     name: 'sharedoauthuser'
     })
 }}
+
+{% endif %}
 
 <hr>
