@@ -20,6 +20,8 @@ Thanks - John
 
 ### Version History
 
+* Version 1.3.3 (March 23, 2015)
+	- Fixed errors present in "free" and "client" versions of Craft seen when devMode was set to true. Now settings page of Pic Puller will only display list of admins for shared oAuth when using pro version of Craft.
 * Version 1.3.2 (March 12, 2015)
 	- The Instagram feed has removed "webiste" from all but the user API call. The "website" value has been removed from Pic Puller as well since it is no longer available.
 * Version 1.3.1 (Dec 6, 2014)
