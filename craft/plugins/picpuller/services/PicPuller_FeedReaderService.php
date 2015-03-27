@@ -909,6 +909,8 @@ class PicPuller_FeedReaderService extends BaseApplicationComponent
 					'debug' => false,
 					'CURLOPT_RETURNTRANSFER' => 1,
 					'CURLOPT_SSL_VERIFYPEER' => false,
+					'CURLOPT_TIMEOUT_MS' => 1000,
+					'CURLOPT_NOSIGNAL' => 1,
 				);
 		$client = new \Guzzle\Http\Client();
 		$request = $client->createRequest('GET', self::IG_API_URL.$url, $options);

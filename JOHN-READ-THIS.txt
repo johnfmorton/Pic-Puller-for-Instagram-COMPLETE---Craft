@@ -1,0 +1,5 @@
+This version contains an update to the cURL timeout function in the feedreader service
+which has not been push live to anyone else yet.
+
+March 27, 2015
+
