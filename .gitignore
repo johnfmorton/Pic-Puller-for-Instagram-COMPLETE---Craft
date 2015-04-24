@@ -1,3 +1,5 @@
 # Craft Storage (cache) [http://buildwithcraft.com/help/craft-storage-gitignore]
 /craft/storage/*
 !/craft/storage/logo/*
+not to publish
+screenshots-for-docs/authorized-and-verified.jpg

@@ -17,7 +17,7 @@
 	    <p>The current logged in user, <em>{{ user.username }}</em>, has saved Instagram oAuth information stored for this application.</p>
 
 
-{% for instagramdata in craft.picpuller.user({'use_stale_cache' : true, 'user_id' : user.id }) %}
+{% for instagramdata in craft.picpuller.user({'use_stale_cache' : false, 'user_id' : user.id }) %}
     <div class="igpp igppavatar">
     {% if instagramdata.status == TRUE %}
         <div class='igpic_image'>
