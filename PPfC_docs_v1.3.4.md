@@ -20,6 +20,9 @@ Thanks - John
 
 ### Version History
 
+* Version 1.3.4 (April 24, 2015)
+	- Changed CURL cache options to address some users receiving time out errors when accessing Instagram feed.
+	- Improved the Authenticated User screen in Pic Puller to display the Instagram account info for the authorized account. This should help users spot when previoulsy working oAuth tokens are deauthorized by Instagram.
 * Version 1.3.3 (March 23, 2015)
 	- Fixed errors present in "free" and "client" versions of Craft seen when devMode was set to true. Now settings page of Pic Puller will only display list of admins for shared oAuth when using pro version of Craft.
 * Version 1.3.2 (March 12, 2015)
