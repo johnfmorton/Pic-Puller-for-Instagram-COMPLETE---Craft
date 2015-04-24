@@ -5,6 +5,33 @@
 <form method="post" accept-charset="UTF-8" action="">
 	<input type="hidden" name="action" value="picPuller/oauth/removeOauth">
     <input type="hidden" name="oauth_id" value="{{ userOauthId }}" />
-	<p>The current logged in user, <em>{{ user.username }}</em>, has saved oAuth information stored for this application.</p>
-	<p><input class="btn submit" type="submit" name="step2" value="Remove oAuth for this user"></p>
+	<p>The current logged in user, <em>{{ user.username }}</em>, has saved Instagram oAuth information stored for this application.</p>
+
+{% for instagramdata in craft.picpuller.user({'use_stale_cache' : false, 'user_id' : user.id }) %}
+    <div class="igpp igppavatar">
+    {% if instagramdata.status == TRUE %}
+        <div class='igpic_image'>
+            <img src="{{ instagramdata.profile_picture }}" title='{{ instagramdata.full_name }}' width='110' height="110">
+        </div>
+        <div class='igpic_info'>
+            <p class="titlefield">Account verified by Instagram</p>
+            <p class='igpic_username'><a href="https://instagram.com/{{ instagramdata.username }}" title='Instagram for {{ instagramdata.full_name }}' target='_blank'>{{ instagramdata.username }}</a></p>
+            <p class="igpp_fullname">{{ instagramdata.full_name }}</p>
+            <p><input class="btn submit" type="submit" name="step2" value="Remove oAuth for this user"></p>
+        </div>
+    {% else %}
+    <div class='igpic_image'>
+        <span class="igpp_error">!</span>
+    </div>
+    <div class='igpic_info'>
+        <p class="igpic_errornotice">An error was returned when verifying this informaion with Instagram.</p>
+        <p>Error Type: {{ instagramdata.error_type }}</p>
+        <p>Error Message: {{ instagramdata.error_message }}</p>
+        <p>If error persists you may need to remove authorization and reauthorize.</p>
+        <p><input class="btn submit" type="submit" name="step2" value="Remove oAuth for this user"></p>
+    </div>
+    {% endif %}
+    </div>
+{% endfor %}
 </form>
+
