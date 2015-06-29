@@ -20,6 +20,8 @@ Thanks - John
 
 ### Version History
 
+* Version 1.4.0 (June 5, 2015)
+	- Improved "media_recent" and "user". Passing in an Instgram ID in the 'ig_user_id' parameter will allow you to pull another user's *public* feed. 
 * Version 1.3.4 (April 24, 2015)
 	- Changed CURL cache options to address some users receiving time out errors when accessing Instagram feed.
 	- Improved the Authenticated User screen in Pic Puller to display the Instagram account info for the authorized account. This should help users spot when previoulsy working oAuth tokens are deauthorized by Instagram.
@@ -67,7 +69,7 @@ Here is the basic workflow. Pic Puller will take you to Instagram to set up an a
 
 You can then authorize your new Instagram application to access your Instagram media.
 
-### Other users and Pic Puller for Instagram
+### Multiple users and Pic Puller for Instagram
 
 You are not limited to one user with Pic Puller. If you have purchased the "Craft Client" or "Craft Pro" package, i.e. the paid version of Craft, other users can also authorize their Instagram accounts as well. Pic Puller works without a the upgraded Craft CMS client but is limited to the one user granted by that version of the Craft software.
 
@@ -204,9 +206,11 @@ Instragram docs page for this function:
 
 #### Required parameters
 
-user_id: the Craft user id (not an Instagram user id)
+user_id: the Craft user id (not an Instagram user id). Using the Craft user id *without* the **optional** 'ig_user_id' parameter will return the authorized user's Instagram user data.
 
 #### Optional parameters
+
+ig_user_id: you can pass in the Instagram user id of another user and retrieve that user's *public* user information data (How do you retrieve a user's ID? Try [this site](http://www.otzberg.net/iguserid/ 'Find an Instagram User').)
 
 use_stale_cache: BOOLEAN, either TRUE or FALSE (defaults to TRUE if undefined), to have Pic Puller use previously cached data returned in the event of an error in retrieving new data
 
@@ -365,9 +369,11 @@ Instragram docs page for this function: [http://instagram.com/developer/endpoint
 
 #### Required parameters
 
-user_id: This is the ID number of an Craft user. (It is not the Instagram user id number.)
+user_id: This is the ID number of an Craft user. (It is not the Instagram user id number.) Using the Craft user id *without* the **optional** 'ig_user_id' parameter will return the authorized user's Instagram recent media.
 
 #### Optional parameters
+
+ig_user_id: you can pass in the Instagram user id of another user and retrieve that user's *public* media (How do you retrieve a user's ID? Try [this site](http://www.otzberg.net/iguserid/ 'Find an Instagram User').)
 
 limit: an integer indicating how many images to request from Instagram. Instagram may return fewer under some circumstances. Maximum of 32 allowed by Instagram.
 

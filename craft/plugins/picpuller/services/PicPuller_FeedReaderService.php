@@ -149,8 +149,10 @@ class PicPuller_FeedReaderService extends BaseApplicationComponent
 			return $this->_unauthorizedUserErrorReturn();
 		}
 
+		$ig_user_id = isset($tags['ig_user_id']) ? $tags['ig_user_id'] : $this->_getInstagramId($user_id);
+
 		// set up the USERS url used by Instagram
-		$query_string = "users/self?access_token={$oauth}";
+		$query_string = "users/$ig_user_id?access_token={$oauth}";
 
 		$data = $this->_fetch_data($query_string, $use_stale);
 
@@ -340,7 +342,7 @@ class PicPuller_FeedReaderService extends BaseApplicationComponent
 			$max_id = "&max_id=$max_id";
 		}
 
-		$ig_user_id = $this->_getInstagramId($user_id);
+		$ig_user_id = isset($tags['ig_user_id']) ? $tags['ig_user_id'] : $this->_getInstagramId($user_id);
 
 		if(!$ig_user_id)
 		{
