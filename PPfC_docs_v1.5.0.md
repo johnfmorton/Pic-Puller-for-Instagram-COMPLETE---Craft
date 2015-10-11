@@ -1,4 +1,4 @@
-﻿# Pic Puller for Instagram Documentation
+# Pic Puller for Instagram Documentation
 
 ## Overview
 
@@ -148,21 +148,47 @@ caption: The caption provided by the author. Note, it may be left untitled which
 
 thumbnail: URL to image, sized 150x150
 
+thumbnail_width: Actual width of image in pixels.
+
+thumbnail_height: Actual height of image in pixels. 
+
 low_resolution: URL to image, sized 306x306
+
+low_resolution_width: Actual width of image in pixels.
+
+low_resolution_height: Actual height of image in pixels.
 
 standard_resolution: URL to image, sized 612x612
 
+standard_resolution_width: Actual width of image in pixels.
+
+standard_resolution_height: Actual height of image in pixels. 
+
+video_low_bandwith: URL to video, sized 480x480
+
+video_low_bandwith_width: Actual width of video in pixels.
+
+video_low_bandwith_height: Actual height of video in pixels.
+
 video_low_resolution: URL to video, sized 480x480
 
+video_low_resolution_width: Actual width of video in pixels.
+
+video_low_resolution_height: Actual height of video in pixels.
+
 video_standard_resolution: URL to video, sized 640x640
+
+video_standard_resolution_width: Actual width of video in pixels.
+
+video_standard_resolution_height: Actual height of video in pixels.
 
 latitude: latitude data, if available
 
 longitude: longitude data, if available
 
-username: the Instagram username of the user whose account the image is from
+username: the Instagram username of the user whose account the image originates from
 
-full_name: the full name provided by the user whose account the image is from
+full_name: the full name provided by the user whose account the image originates from
 
 profile_picture: URL to the profile image of the user
 
@@ -234,7 +260,7 @@ counts_followed_by: the number of users who follow this user on Instagram
 
 counts_follows: the number of users this user follows on Instagram
 
-website: the website URL provided by the user whose account the image is from
+website: the website URL provided by the user whose account the image originates from
 
 error_type: a string of "NoError" to indicate a successful call to the Instagram API
 
@@ -304,13 +330,39 @@ caption: The caption provided by the author. Note, it may be left untitled which
 
 thumbnail: URL to image, sized 150x150
 
+thumbnail_width: Actual width of image in pixels.
+
+thumbnail_height: Actual height of image in pixels. 
+
 low_resolution: URL to image, sized 306x306
+
+low_resolution_width: Actual width of image in pixels.
+
+low_resolution_height: Actual height of image in pixels.
 
 standard_resolution: URL to image, sized 612x612
 
+standard_resolution_width: Actual width of image in pixels.
+
+standard_resolution_height: Actual height of image in pixels. 
+
+video_low_bandwith: URL to video, sized 480x480
+
+video_low_bandwith_width: Actual width of video in pixels.
+
+video_low_bandwith_height: Actual height of video in pixels.
+
 video_low_resolution: URL to video, sized 480x480
 
+video_low_resolution_width: Actual width of video in pixels.
+
+video_low_resolution_height: Actual height of video in pixels.
+
 video_standard_resolution: URL to video, sized 640x640
+
+video_standard_resolution_width: Actual width of video in pixels.
+
+video_standard_resolution_height: Actual height of video in pixels.
 
 latitude: latitude data, if available
 
@@ -319,13 +371,13 @@ longitude: longitude data, if available
 next_max_id: an integer, provided by Instagram, used to return the next set in the same series of images.
 Pass this value into the max_id parameter of the loop to get the next page of results.
 
-user_id: the Instagram user ID of the user whose account the image is from
+user_id: the Instagram user ID of the user whose account the image originates from
 
-username: the Instagram username of the user whose account the image is from
+username: the Instagram username of the user whose account the image originates from
 
 profile_picture: URL to the profile image of the user
 
-full_name: the full name provided by the user whose account the image is from
+full_name: the full name provided by the user whose account the image originates from
 
 error_type: a string of "NoError" to indicate a successful call to the Instagram API resulting in valid data OR a string of "NoCodeReturned" indicating there was no data returned from Instagram
 
@@ -397,13 +449,39 @@ caption: The caption provided by the author. Note, it may be left untitled which
 
 thumbnail: URL to image, sized 150x150
 
+thumbnail_width: Actual width of image in pixels.
+
+thumbnail_height: Actual height of image in pixels. 
+
 low_resolution: URL to image, sized 306x306
+
+low_resolution_width: Actual width of image in pixels.
+
+low_resolution_height: Actual height of image in pixels.
 
 standard_resolution: URL to image, sized 612x612
 
+standard_resolution_width: Actual width of image in pixels.
+
+standard_resolution_height: Actual height of image in pixels. 
+
+video_low_bandwith: URL to video, sized 480x480
+
+video_low_bandwith_width: Actual width of video in pixels.
+
+video_low_bandwith_height: Actual height of video in pixels.
+
 video_low_resolution: URL to video, sized 480x480
 
+video_low_resolution_width: Actual width of video in pixels.
+
+video_low_resolution_height: Actual height of video in pixels.
+
 video_standard_resolution: URL to video, sized 640x640
+
+video_standard_resolution_width: Actual width of video in pixels.
+
+video_standard_resolution_height: Actual height of video in pixels.
 
 latitude: latitude data, if available
 
@@ -484,13 +562,39 @@ caption: The caption provided by the author. Note, it may be left untitled which
 
 thumbnail: URL to image, sized 150x150
 
+thumbnail_width: Actual width of image in pixels.
+
+thumbnail_height: Actual height of image in pixels. 
+
 low_resolution: URL to image, sized 306x306
+
+low_resolution_width: Actual width of image in pixels.
+
+low_resolution_height: Actual height of image in pixels.
 
 standard_resolution: URL to image, sized 612x612
 
+standard_resolution_width: Actual width of image in pixels.
+
+standard_resolution_height: Actual height of image in pixels. 
+
+video_low_bandwith: URL to video, sized 480x480
+
+video_low_bandwith_width: Actual width of video in pixels.
+
+video_low_bandwith_height: Actual height of video in pixels.
+
 video_low_resolution: URL to video, sized 480x480
 
+video_low_resolution_width: Actual width of video in pixels.
+
+video_low_resolution_height: Actual height of video in pixels.
+
 video_standard_resolution: URL to video, sized 640x640
+
+video_standard_resolution_width: Actual width of video in pixels.
+
+video_standard_resolution_height: Actual height of video in pixels.
 
 latitude: latitude data, if available
 
@@ -498,13 +602,13 @@ longitude: longitude data, if available
 
 next_max_id: an integer, provided by Instagram, used to return the next set in the same series of images. Pass this value into the max_id parameter of the loop to get the next page of results.
 
-username: the Instagram username of the user whose account the image is from
+username: the Instagram username of the user whose account the image originates from
 
-full_name: the full name provided by the user whose account the image is from
+full_name: the full name provided by the user whose account the image originates from
 
 profile_picture: URL to the profile image of the user
 
-user_id: the Instagram user ID of the user whose account the image is from
+user_id: the Instagram user ID of the user whose account the image originates from
 
 error_type: a string of "NoError" to indicate a successful call to the Instagram API resulting in valid data OR a string of "NoCodeReturned" indicating there was no data returned from Instagram
 
@@ -578,13 +682,39 @@ caption: The caption provided by the author. Note, it may be left untitled which
 
 thumbnail: URL to image, sized 150x150
 
+thumbnail_width: Actual width of image in pixels.
+
+thumbnail_height: Actual height of image in pixels. 
+
 low_resolution: URL to image, sized 306x306
+
+low_resolution_width: Actual width of image in pixels.
+
+low_resolution_height: Actual height of image in pixels.
 
 standard_resolution: URL to image, sized 612x612
 
+standard_resolution_width: Actual width of image in pixels.
+
+standard_resolution_height: Actual height of image in pixels. 
+
+video_low_bandwith: URL to video, sized 480x480
+
+video_low_bandwith_width: Actual width of video in pixels.
+
+video_low_bandwith_height: Actual height of video in pixels.
+
 video_low_resolution: URL to video, sized 480x480
 
+video_low_resolution_width: Actual width of video in pixels.
+
+video_low_resolution_height: Actual height of video in pixels.
+
 video_standard_resolution: URL to video, sized 640x640
+
+video_standard_resolution_width: Actual width of video in pixels.
+
+video_standard_resolution_height: Actual height of video in pixels.
 
 latitude: latitude data, if available
 
@@ -592,13 +722,13 @@ longitude: longitude data, if available
 
 next_max_id: an integer, provided by Instagram, used to return the next set in the same series of images. Pass this value into the max_id parameter of the loop to get the next page of results.
 
-user_id: the Instagram user ID of the user whose account the image is from
+user_id: the Instagram user ID of the user whose account the image originates from
 
-username: the Instagram username of the user whose account the image is from
+username: the Instagram username of the user whose account the image originates from
 
 profile_picture: URL to the profile image of the user
 
-full_name: the full name provided by the user whose account the image is from
+full_name: the full name provided by the user whose account the image originates from
 
 error_type: a string of "NoError" to indicate a successful call to the Instagram API resulting in valid data OR a string of "NoCodeReturned" indicating there was no data returned from Instagram
 
@@ -663,27 +793,51 @@ caption: The caption provided by the author. Note, it may be left untitled which
 
 thumbnail: URL to image, sized 150x150
 
+thumbnail_width: Actual width of image in pixels.
+
+thumbnail_height: Actual height of image in pixels. 
+
 low_resolution: URL to image, sized 306x306
+
+low_resolution_width: Actual width of image in pixels.
+
+low_resolution_height: Actual height of image in pixels.
 
 standard_resolution: URL to image, sized 612x612
 
+standard_resolution_width: Actual width of image in pixels.
+
+standard_resolution_height: Actual height of image in pixels. 
+
+video_low_bandwith: URL to video, sized 480x480
+
+video_low_bandwith_width: Actual width of video in pixels.
+
+video_low_bandwith_height: Actual height of video in pixels.
+
 video_low_resolution: URL to video, sized 480x480
 
+video_low_resolution_width: Actual width of video in pixels.
+
+video_low_resolution_height: Actual height of video in pixels.
+
 video_standard_resolution: URL to video, sized 640x640
+
+video_standard_resolution_width: Actual width of video in pixels.
+
+video_standard_resolution_height: Actual height of video in pixels.
 
 latitude: latitude data, if available
 
 longitude: longitude data, if available
 
-username: the Instagram username of the user whose account the image is from
+username: the Instagram username of the user whose account the image originates from
 
-user_id: the Instagram user id of the user whose account the image is from
+user_id: the Instagram user id of the user whose account the image originates from
 
-full_name: the full name provided by the user whose account the image is from
+full_name: the full name provided by the user whose account the image originates from
 
 profile_picture: URL to the profile image of the user
-
-website: the website information whose account the image is from, if available
 
 likes: number of likes for piece of media
 

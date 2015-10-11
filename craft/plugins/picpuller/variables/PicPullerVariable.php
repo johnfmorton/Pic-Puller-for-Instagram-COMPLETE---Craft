@@ -49,6 +49,17 @@ class PicPullerVariable
     }
 
     /**
+     * Get recent media from a single user from Instagram in its raw state.
+     * This is a non-public function used primarily for testing.
+     * Use at your own risk. It may be eliminated in future versions of Pic Puller.
+     * @param  Array  $tags [description]
+     * @return Array  An array of media and user data
+     */
+    public function media_recent_raw($tags = null) {
+        return craft()->picPuller_feedReader->media_recent_raw($tags);
+    }
+
+    /**
      * Get the feed (those people a user follows) of the authorized user from Instagram
      * @param  Array  $tags [description]
      * @return Array  An array of media and user data
