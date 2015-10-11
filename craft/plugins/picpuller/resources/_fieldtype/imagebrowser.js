@@ -1,3 +1,6 @@
+/* global
+	PicPuller, Garnish
+*/
 // console.log('Pic Puller JS loaded.');
 (function( $ ) {
 
@@ -34,7 +37,7 @@
 
 			// console.log('$(this) button clicked', $(this));
 
-			var targetFieldForId = $(this).parent().find('input');
+			//var targetFieldForId = $(this).parent().find('input');
 			// console.log('targetFieldForId', targetFieldForId);
 			// console.log('inputTextField', inputTextField);
 			// These 2 values indicate to me that since thare are the same,
@@ -45,7 +48,7 @@
 
 			var divPart1 = '<div class="modal elementselectormodal" id="pp-thumbs"><div class="body"><div class="content" ><div class="main"><div class="toolbar"><h3>Instagram Images</h3>';
 			var divPart2 = '<div class="pp-search"><input type="text" placeholder="one tag only"/> <div class="btn disabled submit small">Search</div></div>';
-			if (ppBrowserType == 0) {
+			if (ppBrowserType === 0) {
 				// the 0 value means there should be no search button on this modal window
 				// so just empty this string
 				divPart2 = '';
@@ -74,7 +77,7 @@
 				//console.log('picPullerModal existed already - just show it');
 				picPullerModal.show();
 			}
-		})
+		});
 
 		lookupBt.on('click', doLookup);
 
@@ -87,7 +90,8 @@
 			previewField.slideUp().html('');
 		}
 
-		inputTextField.keyup(function(e) {
+		// inputTextField.keyup(function(e) {
+		inputTextField.keyup(function() {
 			_checkForValueinPPfield();
 			closePreview();
 		});
@@ -100,7 +104,7 @@
 			thisModal.on('click', '.btn', function(e) {
 				if( $(e.target).hasClass('cancel') ) {
 					picPullerModal.hide();
-				};
+				}
 				if( $(e.target).hasClass('igpic_next') ) {
 					if ( $(e.target).hasClass('type-media') ) {
 						$(e.target).removeClass('btn').removeClass('igpic_next').addClass('next_loading');
@@ -111,7 +115,7 @@
 						loadImagesByTag(PicPuller.searchTag, $(e.target).data('nextmaxid'));
 					}
 
-				};
+				}
 			});
 			thisModal.on('click', '.selectable', function(e) {
 				var selectedMediaId = $(e.currentTarget).data('mediaid');
@@ -119,7 +123,8 @@
 				loadMediaById(selectedMediaId);
 				picPullerModal.hide();
 			});
-			thisModal.on('click', '.pp-search .btn', function (e) {
+			//thisModal.on('click', '.pp-search .btn', function (e) {
+			thisModal.on('click', '.pp-search .btn', function () {
 				if ( !thisSearchBt.hasClass('disabled') ) {
 					// saving the search tag in the PicPuller global for reuse in the
 					// "more" images button link
@@ -135,8 +140,9 @@
 					// console.log('no search terms');
 					// Since search was disabled, this shouldn't be possible though.
 				}
-			})
-			thisModal.find('.pp-search input').keyup(function(e) {
+			});
+			// thisModal.find('.pp-search input').keyup(function(e) {
+			thisModal.find('.pp-search input').keyup(function() {
 				if($(this).val() !== '') {
 					thisSearchBt.removeClass('disabled');
 				} else {
@@ -146,8 +152,8 @@
 		}
 
 		function loadImages(nextMaxId) {
-			var nextMaxId = (nextMaxId === undefined) ? '' : nextMaxId;
-			var theURL = "/" + PicPuller.adminPath + "/picpuller/mediarecent/" + nextMaxId;
+			var localNextMaxId = (nextMaxId === undefined) ? '' : nextMaxId;
+			var theURL = "/" + PicPuller.adminPath + "/picpuller/mediarecent/" + localNextMaxId;
 			// var theThumbTarget = $('#'+PicPuller.fieldId);
 			$.ajax({
 				url: theURL,
@@ -158,12 +164,13 @@
 					$('.next_loading').remove();
 					var thumbField = $('#pp-thumbs .main .elements');
 					var loadMore = '<div class="igpic igpic_end">' +'END' + '</div>';
-					if (data.meta.nextMaxId != '') {
+					if (data.meta.nextMaxId !== '') {
 						loadMore = '<div class=" igpic igpic_next type-media btn" data-nextmaxid="'+data.meta.nextMaxId +'"></div>';
 					}
 					for(var i = 0; i < data.ppimages.length; i++){
 						var mediatype = data.ppimages[i].video ? 'video' : 'photo';
-						var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'"><div class="'+mediatype+'"></div><img src="'+data.ppimages[i].url+'" alt="" width="100" height="100" border="0" /> </div>';
+						//var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'"><div class="'+mediatype+'"></div><img src="'+data.ppimages[i].url+'" alt="" width="100" height="100" border="0" /> </div>';
+						var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'" style="background-image: url('+data.ppimages[i].url+'); background-size:cover;background-position: center;"><div class="'+mediatype+'"></div></div>';
 						thumbField.append(pic);
 					}
 					thumbField.append(loadMore);
@@ -178,22 +185,24 @@
 				url: theURL,
 				dataType: 'json',
 				success: function(data) {
-					//console.log('success', data);
-					var isVideo = data.ppimages[0].video;
-					var thePreview = "<div><div class='igpic_image'><img src='" + data.ppimages[0].url +"' alt='" + data.ppimages[0].caption +"' width=100 height=100 border=0 /></div><div class='igpic_info'><p class='titlefield'>Preview from Instagram</p><p class='caption'><a href='" + data.ppimages[0].link +"' target='_blank' title='Open image link in new window'>" + data.ppimages[0].caption +"</a></p><p class='igpic_author'>By <strong>" + data.ppimages[0].full_name +"</strong> @" + data.ppimages[0].username +"</p></div></div>";
+					// console.log('success', data);
+					// var isVideo = data.ppimages[0].video;
+					// var thePreview = "<div><div class='igpic_image'><img src='" + data.ppimages[0].url +"' alt='" + data.ppimages[0].caption +"' width=100 height=100 border=0 /></div><div class='igpic_info'><p class='titlefield'>Preview from Instagram</p><p class='caption'><a href='" + data.ppimages[0].link +"' target='_blank' title='Open image link in new window'>" + data.ppimages[0].caption +"</a></p><p class='igpic_author'>By <strong>" + data.ppimages[0].full_name +"</strong> @" + data.ppimages[0].username +"</p></div></div>";
+					var thePreview = "<div><div class='igpic_image' style='background-image: url("+data.ppimages[0].url+"); background-size:cover;background-position: center;'></div><div class='igpic_info'><p class='titlefield'>Preview from Instagram</p><p class='caption'><a href='" + data.ppimages[0].link +"' target='_blank' title='Open image link in new window'>" + data.ppimages[0].caption +"</a></p><p class='igpic_author'>By <strong>" + data.ppimages[0].full_name +"</strong> @" + data.ppimages[0].username +"</p></div></div>";
 					previewField.html(thePreview);
 					previewField.slideDown();
 				},
-				error: function(data) {
-					// console.log('error', data);
+				// error: function(data) {
+				error: function() {
+					//console.log('error', data);
 				}
 			});
 		}
 
 		function loadImagesByTag(tag, nextMaxId) {
-			var nextMaxId = (nextMaxId === undefined) ? '' : nextMaxId;
-			var tag = encodeURIComponent(_trim11(tag));
-			var theURL = "/" + PicPuller.adminPath + "/picpuller/mediabytag/" + tag + "/" + nextMaxId;
+			var localNextMaxId = (nextMaxId === undefined) ? '' : nextMaxId;
+			var localTag = encodeURIComponent(_trim11(tag));
+			var theURL = "/" + PicPuller.adminPath + "/picpuller/mediabytag/" + localTag + "/" + localNextMaxId;
 
 			// console.log(theURL);
 			// var theThumbTarget = $('#'+PicPuller.fieldId);
@@ -207,7 +216,7 @@
 					$('.next_loading').remove();
 					var thumbField = $('#pp-thumbs .main .elements');
 					var loadMore = '<div class="igpic igpic_end">' +'END' + '</div>';
-					if (data.meta.nextMaxId != '') {
+					if (data.meta.nextMaxId !== '') {
 						loadMore = '<div class=" igpic igpic_next type-search btn" data-nextmaxid="'+data.meta.nextMaxId +'"></div>';
 					}
 					for(var i = 0; i < data.ppimages.length; i++){
