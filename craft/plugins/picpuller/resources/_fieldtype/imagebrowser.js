@@ -221,7 +221,9 @@
 					}
 					for(var i = 0; i < data.ppimages.length; i++){
 						var mediatype = data.ppimages[i].video ? 'video' : 'photo';
-						var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'"><div class="'+mediatype+'"></div><img src="'+data.ppimages[i].url+'" alt="" width="100" height="100" border="0" /> </div>';
+						// var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'"><div class="'+mediatype+'"></div><img src="'+data.ppimages[i].url+'" alt="" width="100" height="100" border="0" /> </div>';
+						// thumbField.append(pic);
+						var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'" style="background-image: url('+data.ppimages[i].url+'); background-size:cover;background-position: center;"><div class="'+mediatype+'"></div></div>';
 						thumbField.append(pic);
 					}
 					thumbField.append(loadMore);

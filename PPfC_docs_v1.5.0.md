@@ -20,6 +20,10 @@ Thanks - John
 
 ### Version History
 
+* Version 1.5.0 (Oct 11, 2015)
+	- [IMPROVED] An API change from Instagram allowing for non-square images and videos to be posted added height and width values to data it returns to developers. This data has been added to Pic Puller. See: http://developers.instagram.com/post/128288227716/api-migration-for-landscape-and-portrait-formats for more information.
+	- [IMPROVED] Added the low bandwidth video information to Pic Puller. Look for *video_low_bandwidth*, *video_low_bandwidth_width* and *video_low_bandwidth_height* in the documenation.
+
 * Version 1.4.0 (June 5, 2015)
 	- Improved "media_recent" and "user". Passing in an Instgram ID in the 'ig_user_id' parameter will allow you to pull another user's *public* feed. 
 * Version 1.3.4 (April 24, 2015)
