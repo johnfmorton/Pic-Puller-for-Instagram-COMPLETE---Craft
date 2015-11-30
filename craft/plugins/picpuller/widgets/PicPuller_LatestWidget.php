@@ -23,20 +23,27 @@ class PicPuller_LatestWidget extends BaseWidget
 {
     public function getName()
     {
-        Craft::log(__METHOD__, LogLevel::Info, true);
-        return Craft::t('Latest Instagram Image');
+        // Craft::log(__METHOD__, LogLevel::Info, true);
+        return Craft::t('Latest Instagram Post');
+    }
+
+    /**
+     * @inheritDoc IWidget::getIconPath()
+     *
+     * @return string
+     */
+    public function getIconPath()
+    {
+        return craft()->path->getPluginsPath().'picpuller/resources/latest-widget-icon.svg';
     }
 
     public function getBodyHtml()
     {
-        Craft::log(__METHOD__, LogLevel::Info, true);
+        // Craft::log(__METHOD__, LogLevel::Info, true);
 
-        // \FB::log(craft()->userSession->user->id, 'Current Logged in User ID:');
         $media_recent = craft()->picPuller_feedReader->media_recent(array('user_id' => craft()->userSession->user->id, 'limit' => 1));
-         // \FB::log($media_recent, '$media_recent');
         $renderedTemplate = craft()->templates->render('picpuller/_widgets/latest',  array( 'media_recent' => $media_recent) );
 
-        //$renderedTemplate = craft()->templates->render('picpuller/_widgets/latest');
         return $renderedTemplate;
     }
 }

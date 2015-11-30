@@ -3,7 +3,7 @@ namespace Craft;
 
 class PicPullerPlugin extends BasePlugin
 {
-    function getName() {
+    public function getName() {
         $shortname = $this->getSettings()->shortname;
         // It should not be possible for the shortname to be empty,
         // but PP checks for it in case something went wrong.
@@ -14,16 +14,26 @@ class PicPullerPlugin extends BasePlugin
         }
     }
 
-    function getVersion() {
-        return '1.5.0';
+    public function getVersion() {
+        return '1.6.0';
     }
 
-    function getDeveloper() {
+    public function getDeveloper() {
         return 'John F Morton';
     }
 
-    function getDeveloperUrl() {
+    public function getDeveloperUrl() {
         return 'http://craft.picpuller.com';
+    }
+
+    public function getDescription()
+    {
+        return 'Integrate your own Instagram app in Craft CMS.';
+    }
+
+    public function getDocumentationUrl()
+    {
+        return 'http://craft.picpuller.com/documentation/';
     }
 
     /**

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>
+    pplogo
+  </title>
+  <defs>
+    <circle id="a" cx="150" cy="150" r="150"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="b" fill="#fff">
+      <use xlink:href="#a"/>
+    </mask>
+    <use fill="#D8D8D8" xlink:href="#a"/>
+    <path fill="#8BD337" d="M58.2 9h61.5v299.2H58.2V9z" mask="url(#b)"/>
+    <path fill="#FF8400" d="M178.5 9h61v299.2h-61V9.2z" mask="url(#b)"/>
+    <path fill="#C73F31" d="M299.2 308.2h-60V141.8l60-54.7v221.4" mask="url(#b)"/>
+    <path fill="#F8DD00" d="M73 33.7l45 57.6v217h60.7v-135H213c41.2 0 86.2-28 86.2-82 0-39.7-1-92.4-1-92.4h-225v34.5z" mask="url(#b)"/>
+    <path fill="#426F98" d="M103 9H0v299.2h59.8V173.5h41.6c41.3 0 84-36.8 84-82.2 0-45.5-41-82.3-82.4-82.3" mask="url(#b)"/>
+  </g>
+</svg>

@@ -11,7 +11,7 @@
     {% if craft.request.getQuery('code') != '' %}
     <div id='status' class='pp'></div>
 
-    <p><span id="message">Communicating with Instagram</span></p>
+    <p><span id="message">Communicating with Instagram...</span></p>
     <p id='returnbt'><a href="{{ url('picpuller') }}" class='btn' title='Return to Pic Puller'>Return to Pic Puller</a></p>
     {% set authenticationJS %}
     var data = {
@@ -30,7 +30,7 @@
 
            $("#message").html("<p>An error was returned.</p><p><em>" + response.error_type + ": " +response.error_message + "</em></p>");
         } else {
-            $("#message").html("<p>That was easy.</p>");
+            $("#message").html("<p><em>Success!</em> Authentication is complete.</p>");
         }
         $("#status").remove();
         $('#returnbt').show();
