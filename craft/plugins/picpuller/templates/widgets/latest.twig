@@ -1,0 +1,29 @@
+<div class="body">
+<style>
+	.pppreviewimage {
+		max-width: 100%;
+		margin: 0 auto;
+		display: block;
+		border: 1px solid #aaa;
+	}
+</style>
+	{% if media_recent[0].status == 'true' %}
+		{% for igdata in media_recent %}
+			{% if igdata.video_low_resolution  == '' %}
+			<p><img src="{{ igdata.low_resolution }}" class='pppreviewimage'></p>
+			{% else %}
+			<p>
+				<video controls poster="{{ igdata.low_resolution }}" class='pppreviewimage'>
+					<source src="{{ igdata.video_low_resolution }}" type="video/mp4">
+					  <img src="{{ igdata.low_resolution }}" class='pppreviewimage'>
+				</video>
+			</p>
+			{% endif %}
+			{% if igdata.caption is not empty %}
+			<p><em>Caption: </em>{{ igdata.caption }}</p>
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		<p>No Pic Puller for Craft authorization found. This account needs authorization before it can pull in Instagram media.</p>
+	{% endif %}
+</div>

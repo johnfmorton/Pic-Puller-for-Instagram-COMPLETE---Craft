@@ -1,54 +1,40 @@
 {% extends "_layouts/cp" %}
-{% includeCssResource("picpuller/style.css") %}
-{% includeJsResource("picpuller/spin.min.js") %}
-{% includeJsResource("picpuller/auth.js") %}
+{% includeCssResource("PicPuller/style.css") %}
+{# {% includeJsResource("picPuller/auth.js") %} #}
 
-{% set title = "Pic Puller for Instagram"|t %}
-{% set ig_credentials = craft.picpuller.getCredentials %}
+{% set title = "Pic Puller 2 for Craft"|t %}
 
 {% set content %}
-    <h2 class='pp'>Authenticating with Instagram</h2>
-    {% if craft.request.getQuery('code') != '' %}
-    <div id='status' class='pp'></div>
 
-    <p><span id="message">Communicating with Instagram...</span></p>
-    <p id='returnbt'><a href="{{ url('picpuller') }}" class='btn' title='Return to Pic Puller'>Return to Pic Puller</a></p>
-    {% set authenticationJS %}
-    var data = {
-        code: "{{ craft.request.getQuery('code') }}",
-        userId: "{{ user.id }}",
-        appId: "{{ ig_credentials.id }}",
-        clientId: "{{ ig_credentials.clientId}}",
-        clientSecret: "{{ ig_credentials.clientSecret}}",
-        authUrl: "{{ url('picpuller/auth') }}"
-    };
-    if (data.code !== ''){
-    Craft.postActionRequest('picPuller/oauth/authenticate', data, function(response) {
-        //console.log('I heard back from the post action');
-        //console.log(response);
-        if( response.success == 0 ) {
+    {% if craft.request.getParam('oauth') != '' %}
+        <h2>Success!</h2>
+        <div id='message'>Loading...</div>
+        {% set saveAuthToPPdatabase %}
+            var data = {
+                user_id: "{{ user.id }}",
+                instagram_id: "{{ craft.request.getParam('instagram_id') }}",
+                oauth: "{{ craft.request.getParam('oauth') }}"
+            }
+            Craft.postActionRequest('PicPuller/authorizations/saveCredentials', data, function(response) {
+                console.log('I heard back from the post action');
+                console.log("response:", response);
+                if( (typeof(response) !== "undefined") && (response.success === true) ) {
+                    $("#message").html("<p>Authentication is complete.</p>");
 
-           $("#message").html("<p>An error was returned.</p><p><em>" + response.error_type + ": " +response.error_message + "</em></p>");
-        } else {
-            $("#message").html("<p><em>Success!</em> Authentication is complete.</p>");
-        }
-        $("#status").remove();
-        $('#returnbt').show();
+                } else {
+                {# What happens when there is an instagram error? fix this #}
+                   {# $("#message").html("<p>An error was returned.</p><p><em>" + response.error_type + ": " +response.message + "</em></p>"); #}
+                   $("#message").html("<p>An error occured. Authorization data was not saved.</p>");
+                }
+            })
 
-    });
-    }
-    {% endset %}
-    {% includeJs authenticationJS %}
+        {% endset %}
 
-    {% elseif craft.request.getQuery('error') != '' %}
-    <p><strong>{{ craft.request.getQuery('error') }}</strong></p>
-    <p>Reason: {{ craft.request.getQuery('error_reason') }}</p>
-    <p>Description: {{ craft.request.getQuery('error_description') }}</p>
+        {% includeJs saveAuthToPPdatabase %}
+
+
     {% else %}
-    <p>ERROR: If you were trying to authenticate an Instagram application the proper values were not passed to this page that are needed to proceed.</p>
+        <p>ERROR: If you were trying to authenticate an Instagram application the proper values were not passed to this page that are needed to proceed.</p>
     {% endif %}
-
-
+    <p><a href="{{ url('PicPuller') }}" class='btn' title='Return to Pic Puller'>Return to Pic Puller</a></p>
 {% endset %}
-
-{% set selectedTab = null %}

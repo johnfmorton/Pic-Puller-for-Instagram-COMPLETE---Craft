@@ -1,0 +1,7 @@
+<h2 class='pp'>Authorization</h2>
+
+<p>The current logged in user, <em>{{ user.username }}</em>, has no saved Instagram authorization credentials.</p>
+
+<p>If you would like to pull your <strong>Instagram</strong> images and videos into this site, you will need to grant access to your account.</p>
+
+<p><a href="https://api.instagram.com/oauth/authorize/?client_id=13fd6192d03d4bc9bc10d5102f2e3bbe&redirect_uri=https://picpuller.com/authenticate/&response_type=code&state={{ url('picpuller/auth') }}" class="btn submit">Authorize Pic Puller to access your Instagram account.</a></p>

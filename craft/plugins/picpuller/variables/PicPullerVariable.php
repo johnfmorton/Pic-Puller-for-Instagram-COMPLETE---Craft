@@ -1,10 +1,25 @@
 <?php
+/**
+ * PicPuller plugin for Craft CMS
+ *
+ * PicPuller Variable
+ *
+ * --snip--
+ * Craft allows plugins to provide their own template variables, accessible from the {{ craft }} global variable
+ * (e.g. {{ craft.pluginName }}).
+ *
+ * https://craftcms.com/docs/plugins/variables
+ * --snip--
+ *
+ * @author    John F Morton
+ * @copyright Copyright (c) 2016 John F Morton
+ * @link      http://picPuller.com
+ * @package   PicPuller
+ * @since     2.0.0
+ */
 
 namespace Craft;
 
-/**
- * Cocktail Recipes Variable provides access to database objects from templates
- */
 class PicPullerVariable
 {
     public function __constructor(Array $tags = null)
@@ -13,21 +28,12 @@ class PicPullerVariable
     }
 
     /**
-     * Get popular photos from Instagram
-     * @param  Array  $tags [description]
-     * @return Array  An array of media and user data
-     */
-    public function popular($tags = null) {
-        return craft()->picPuller_feedReader->popular($tags);
-    }
-
-    /**
      * Get user info from Instagram
      * @param  Array  $tags [description]
      * @return Array  An array of media and user data
      */
     public function user($tags = null) {
-        return craft()->picPuller_feedReader->user($tags);
+        return craft()->picPuller_feed->user($tags);
     }
 
     /**
@@ -36,7 +42,7 @@ class PicPullerVariable
      * @return Array  An array of media and user data
      */
     public function media($tags = null) {
-        return craft()->picPuller_feedReader->media($tags);
+        return craft()->picPuller_feed->media($tags);
     }
 
     /**
@@ -45,36 +51,7 @@ class PicPullerVariable
      * @return Array  An array of media and user data
      */
     public function media_recent($tags = null) {
-        return craft()->picPuller_feedReader->media_recent($tags);
-    }
-
-    /**
-     * Get recent media from a single user from Instagram in its raw state.
-     * This is a non-public function used primarily for testing.
-     * Use at your own risk. It may be eliminated in future versions of Pic Puller.
-     * @param  Array  $tags [description]
-     * @return Array  An array of media and user data
-     */
-    public function media_recent_raw($tags = null) {
-        return craft()->picPuller_feedReader->media_recent_raw($tags);
-    }
-
-    /**
-     * Get the feed (those people a user follows) of the authorized user from Instagram
-     * @param  Array  $tags [description]
-     * @return Array  An array of media and user data
-     */
-    public function user_feed($tags = null) {
-        return craft()->picPuller_feedReader->user_feed($tags);
-    }
-
-    /**
-     * Get the liked media of the authorized user from Instagram
-     * @param  Array  $tags [description]
-     * @return Array  An array of media and user data
-     */
-    public function user_liked($tags = null) {
-        return craft()->picPuller_feedReader->user_liked($tags);
+        return craft()->picPuller_feed->media_recent($tags);
     }
 
     /**
@@ -83,33 +60,50 @@ class PicPullerVariable
      * @return Array  An array of media and user data
      */
     public function tagged_media($tags = null) {
-        return craft()->picPuller_feedReader->tagged_media($tags);
+        return craft()->picPuller_feed->tagged_media($tags);
     }
-
 
     /**
-     * REMOVE Get all available ingredients
-     *
-     * @return array
+     * Get the feed (those people a user follows) of the authorized user from Instagram
+     * @param  Array  $tags [description]
+     * @return Array  An array of media and user data
      */
-    // public function getSome($whatever = null)
-    // {
-    //     return craft()->picPuller_appCreation->getSome($whatever);
-    // }
-
-    public function getCredentials() {
-        return craft()->picPuller_appCreation->getCredentials();
+    public function user_feed($tags = null) {
+        return craft()->picPuller_feed->user_feed($tags);
     }
 
-    public function getUsers() {
-        return craft()->picPuller_appCreation->getUsers();
+    /**
+     * Get the liked media of the authorized user from Instagram
+     * @param  Array  $tags [description]
+     * @return Array  An array of media and user data
+     */
+    public function user_liked($tags = null) {
+        return craft()->picPuller_feed->user_liked($tags);
+    }
+
+    /**
+     * Get popular photos from Instagram
+     * @param  Array  $tags [description]
+     * @return Array  An array of media and user data
+     */
+    public function popular($tags = null) {
+        return craft()->picPuller_feed->popular($tags);
+    }
+
+    // The following are used within the control panel
+
+    public function getUserOauthValue( $id ) {
+        return craft()->picPuller_appManagement->getUserOauthValue($id);
     }
 
     public function getUserOauthId( $id ) {
-        return craft()->picPuller_appCreation->getUserOauthId($id);
+        return craft()->picPuller_appManagement->getUserOauthId($id);
     }
 
-    /**
+    public function getUsers() {
+        return craft()->picPuller_appManagement->getUsers();
+    }
+     /**
      * Return the setting for whether the oAuth should be shared across all Craft users
      * @return BOOL The default is false indicating each user should authorize their own account
      */
@@ -124,14 +118,4 @@ class PicPullerVariable
     public function getSharedOauthUser() {
         return craft()->plugins->getPlugin('picpuller')->getSettings()->sharedoauthuser;
     }
-
-
-    /**
-     * Does the application exist in the database
-     * @return BOOL returns TRUE if there is an application saved in the database, or FALSE if not
-     */
-    // private function applicationExists() {
-    //     return TRUE;
-    // }
-
 }
