@@ -1,4 +1,17 @@
 <?php
+/**
+ * Pic Puller for Craft CMS
+ *
+ * PicPuller Latest Widget
+ *
+ *
+ * @author    John F Morton
+ * @copyright Copyright (c) 2016 John F Morton
+ * @link      http://picpuller.com
+ * @package   PicPuller
+ * @since     2.0.0
+ */
+
 namespace Craft;
 
 defined('CRAFT_PLUGINS_PATH')      || define('CRAFT_PLUGINS_PATH',      CRAFT_BASE_PATH.'plugins/');
@@ -27,22 +40,7 @@ class PicPuller_LatestWidget extends BaseWidget
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
 
-//         {% set shareoauth = craft.picpuller.getShareOauthSetting %}
-
-// {% if shareoauth == false %}
-//     {% set pp_user = currentUser.id %}
-// {% else %}
-//     {% set pp_user = craft.picpuller.getSharedOauthUser %}
-// {% endif %}
-        $shareoauth = craft()->plugins->getPlugin('picpuller')->getSettings()->shareoauth;
-
-        if ($shareoauth == false) {
-            $pp_user = craft()->userSession->user->id;
-        } else {
-            $pp_user = craft()->plugins->getPlugin('picpuller')->getSettings()->sharedoauthuser;
-        }
-
-        $media_recent = craft()->picPuller_feed->media_recent(array('user_id' => $pp_user, 'limit' => 1));
+        $media_recent = craft()->picPuller_feed->media_recent(array('user_id' => craft()->userSession->user->id, 'limit' => 1));
         $renderedTemplate = craft()->templates->render('picpuller/widgets/latest',  array( 'media_recent' => $media_recent) );
 
         return $renderedTemplate;

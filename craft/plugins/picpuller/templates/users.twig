@@ -5,7 +5,7 @@
 {% extends "_layouts/cp" %}
 {% includeCssResource("picpuller/style.css") %}
 
-{% set title = "Pic Puller for Craft"|t %}
+{% set title = "Pic Puller 2 for Craft"|t %}
 
 {% set tabs = {
 
@@ -32,14 +32,6 @@ users: { label: "Authorized Users", url: url('picpuller/users')}
 {% set content %}
 <h2 class='pp'>Authorized users</h2>
 
-<p>
-    {% set shareoauth = craft.picpuller.getShareOauthSetting() %}
-    {% if shareoauth == true  %}
-        If your account is shown below, your authorization will be shared amongst all users of the site. Change this preference in the Pic Puller <a href="{{ craft.plugins.getPlugin('picpuller').getSettingsUrl }}" title='Pic Puller settings'>settings</a>.
-        {% else %}
-       There {{ userverb }} {{ users|length }} {{ userphrase }} who {{ userverb2 }} authorized <em>Pic Puller</em> to have access to Instagram. Each user must authenticate their individual Craft user account with an Instagram account to use <em>Pic Puller</em>. This setting can be changed in the Pic Puller <a href="{{ craft.plugins.getPlugin('picpuller').getSettingsUrl }}" title='Pic Puller settings'>settings</a>.
-    {% endif %}
-</p>
 
 <table class="data collapsible">
         <thead>

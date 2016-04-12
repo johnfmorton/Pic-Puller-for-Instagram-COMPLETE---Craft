@@ -1,15 +1,9 @@
 <?php
 /**
- * PicPuller plugin for Craft CMS
+ * Pic Puller for Craft CMS
  *
  * PicPuller_ImageBrowser FieldType
  *
- * --snip--
- * Whenever someone creates a new field in Craft, they must specify what type of field it is. The system comes with
- * a handful of field types baked in, and we’ve made it extremely easy for plugins to add new ones.
- *
- * https://craftcms.com/docs/plugins/field-types
- * --snip--
  *
  * @author    John F Morton
  * @copyright Copyright (c) 2016 John F Morton

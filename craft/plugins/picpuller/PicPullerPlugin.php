@@ -1,13 +1,13 @@
 <?php
 /**
- * PicPuller plugin for Craft CMS
+ * Pic Puller for Craft CMS
  *
  * Integrate Instagram into Craft CMS
  *
  *
  * @author    John F Morton
  * @copyright Copyright (c) 2016 John F Morton
- * @link      http://picPuller.com
+ * @link      https://picpuller.com
  * @package   PicPuller
  * @since     2.0.0
  */
@@ -70,7 +70,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function getDocumentationUrl()
     {
-        return 'http://picPuller.com/documentation/';
+        return 'https://picpuller.com/documentation/';
     }
 
     /**
@@ -82,7 +82,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function getReleaseFeedUrl()
     {
-        return 'http://picPuller.com/releases.json';
+        return 'https://picpuller.com/releases.json';
     }
 
     /**
@@ -92,7 +92,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function getVersion()
     {
-        return '2.0.0';
+        return '2.1.0';
     }
 
     /**
@@ -105,7 +105,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function getSchemaVersion()
     {
-        return '2.0.0';
+        return '2.1.0';
     }
 
     /**
@@ -125,7 +125,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function getDeveloperUrl()
     {
-        return 'http://picpuller.com';
+        return 'https://picpuller.com';
     }
 
     /**
@@ -135,22 +135,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function hasCpSection()
     {
-        $admin = craft()->userSession->getUser()->admin;
-        $shareoauth = $this->getSettings()->shareoauth;
-        $masteroauthuser = $this->getSettings()->sharedoauthuser;
-
-        $thisUser = craft()->userSession->getUser()->id;
-        /*
-        If the user is not an admin, i.e. permission is false,
-        and the shareoauth is set to true, then we do not show
-        the global nav element for non-admin users because
-        there is nothing for them to do there.
-         */
-        if ($shareoauth && ($masteroauthuser !==  $thisUser) ) {
-            return false;
-        } else {
-            return true;
-        }
+        return true;
     }
 
     /**
@@ -193,9 +178,8 @@ class PicPullerPlugin extends BasePlugin
     protected function defineSettings()
     {
         return array(
-            'shortname' => array(AttributeType::String, 'label' => 'Short name for Pic Puller for Craft', 'default' => 'Pic Puller for Craft' ),
-            'shareoauth' => array(AttributeType::Bool, 'default' => false),
-            'sharedoauthuser' =>array(AttributeType::Number, 'default' => 1)
+            'shortname' => array(AttributeType::String, 'label' => 'Short name for Pic Puller 2', 'default' => 'Pic Puller for Craft' ),
+            'someSetting' => array(AttributeType::String, 'label' => 'Some Setting', 'default' => ''),
         );
     }
 
@@ -212,8 +196,8 @@ class PicPullerPlugin extends BasePlugin
     }
 
     /**
-     * If you need to do any processing on your settings’ post data before they’re saved to the database, you can
-     * do it with the prepSettings() method:
+     * If you need to do any processing on your settings’ post data before they’re saved to
+     * the database, you can do it with the prepSettings() method:
      *
      * @param mixed $settings  The Widget's settings
      *
@@ -221,24 +205,20 @@ class PicPullerPlugin extends BasePlugin
      */
     public function prepSettings($settings)
     {
-        if ( empty( $settings['shortname'] ) ) {
-           $settings['shortname'] = 'Pic Puller for Craft';
-        }
+        // Modify $settings here...
 
         return $settings;
     }
 
     public function registerCpRoutes()
     {
-        // There are 2 routes: 1st is with just the userId, 2nd w userId and nextMaxId
-        // using (?P<nextMaxId>\S+) instead of (?P<nextMaxId>\d+) because nextMaxId may be a string "S" and not just digits "d"
-        // The 2 routes for searching by tag are similar, they use (?P<tag>\S+) not (?P<tag>\d+) because the tag will be a string
+        // these routes make the field type image browser work
+        // the "mediarecent" one handles the feed lookup
+        // the "mediabyid" one handles the image by ID lookup for the preview image
 
         return array(
             'picpuller/mediarecent' => 'picpuller/fields/mediarecent',
             'picpuller/mediarecent/(?P<nextMaxId>\S+)' => 'picpuller/fields/mediarecent',
-            //'picpuller/mediabytag/(?P<searchTag>\S+)' => 'picpuller/fields/mediabytag',
-            //'picpuller/mediabytag/(?P<searchTag>\S+)/(?P<nextMaxId>\S+)' => 'picpuller/fields/mediabytag',
             'picpuller/mediabyid/(?P<mediaId>\S+)' => 'picpuller/fields/mediabyid'
        );
     }

@@ -1,7 +1,7 @@
 /* global
 	PicPuller, Garnish
 */
-console.log('Pic Puller JS loaded.');
+//console.log('Pic Puller JS loaded.');
 (function( $ ) {
 
     $.fn.imagebrowser = function() {
@@ -19,9 +19,9 @@ console.log('Pic Puller JS loaded.');
 
 		function doLookup() {
 			if (inputTextField.val() !== '') {
-				console.log('There is text present in the PP field.');
+				// console.log('There is text present in the PP field.');
 				var inputTextFieldVal = inputTextField.val();
-				if ( inputTextFieldVal.indexOf('instagr') === 7 ) {
+				if ( inputTextFieldVal.indexOf('instagr') !== -1 ) {
 					translateURLtoMediaID(_trim11(inputTextFieldVal));
 				} else {
 					loadMediaById(inputTextFieldVal);
@@ -33,18 +33,6 @@ console.log('Pic Puller JS loaded.');
 
 		theButton.on('click', function () {
 			var ppBrowserType = theButton.data('ppbrowsertype');
-			console.log('ppBrowserType', ppBrowserType);
-
-			console.log('$(this) button clicked', $(this));
-
-			//var targetFieldForId = $(this).parent().find('input');
-			// console.log('targetFieldForId', targetFieldForId);
-			// console.log('inputTextField', inputTextField);
-			// These 2 values indicate to me that since thare are the same,
-			// the targeting of the input field isn't the problem
-			// Instead, something is messing up the ability of subsequently
-			// created Modal windows from receiving click events.
-
 
 			var divPart1 = '<div class="modal elementselectormodal" id="pp-thumbs"><div class="body"><div class="content" ><div class="main"><div class="toolbar"><h3>Instagram Images</h3>';
 
@@ -54,13 +42,7 @@ console.log('Pic Puller JS loaded.');
 			if (!picPullerModal) {
 				//console.warn('No picPullerModal exits for this browse button');
 				picPullerModal = new Garnish.Modal($div, {
-					resizable: true //,
-					// onFadeIn: function () {
-					// 	//console.log('Modal is faded in.');
-					// },
-					// onShow: function() {
-					// 	//console.log('I\'m showing');
-					// }
+					resizable: true,
 				});
 				addModelButtonActions(picPullerModal);
 				// if the ppBrowserType is 1, we don't show the user's media feed
@@ -165,7 +147,6 @@ console.log('Pic Puller JS loaded.');
 					}
 					for(var i = 0; i < data.ppimages.length; i++){
 						var mediatype = data.ppimages[i].video ? 'video' : 'photo';
-						//var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'"><div class="'+mediatype+'"></div><img src="'+data.ppimages[i].url+'" alt="" width="100" height="100" border="0" /> </div>';
 						var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'" style="background-image: url('+data.ppimages[i].url+'); background-size:cover;background-position: center;"><div class="'+mediatype+'"></div></div>';
 						thumbField.append(pic);
 					}
@@ -193,16 +174,13 @@ console.log('Pic Puller JS loaded.');
 			});
 		}
 
-
 		// This is still here while trying to negotiate with Instagram for
 		// fuller access
 		function loadImagesByTag(tag, nextMaxId) {
 			var localNextMaxId = (nextMaxId === undefined) ? '' : nextMaxId;
 			var localTag = encodeURIComponent(_trim11(tag));
 			var theURL = "/" + picpuller.adminPath + "/picpuller/mediabytag/" + localTag + "/" + localNextMaxId;
-
 			// console.log(theURL);
-			// var theThumbTarget = $('#'+picpuller.fieldId);
 			$.ajax({
 				url: theURL,
 				dataType: 'json',
@@ -218,8 +196,6 @@ console.log('Pic Puller JS loaded.');
 					}
 					for(var i = 0; i < data.ppimages.length; i++){
 						var mediatype = data.ppimages[i].video ? 'video' : 'photo';
-						// var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'"><div class="'+mediatype+'"></div><img src="'+data.ppimages[i].url+'" alt="" width="100" height="100" border="0" /> </div>';
-						// thumbField.append(pic);
 						var pic = '<div class="igpic selectable" data-mediaid="'+data.ppimages[i].media_id +'" style="background-image: url('+data.ppimages[i].url+'); background-size:cover;background-position: center;"><div class="'+mediatype+'"></div></div>';
 						thumbField.append(pic);
 					}
@@ -231,16 +207,16 @@ console.log('Pic Puller JS loaded.');
 		function translateURLtoMediaID(url) {
 			var media_id = null;
 			$.ajax({
-					url: "http://api.instagram.com/oembed?url="+url,
+					url: "https://api.instagram.com/oembed/?url="+url,
 					contentType: 'text/plain',
 					xh: {
 						withCredentials: false
 					},
 					dataType: 'jsonp',
 					success: function(data) {
-						// console.log('Data received from Instagram oembed.');
-						// console.log(data);
-						// console.log(data.media_id);
+						console.log('Data received from Instagram oembed.');
+						console.log(data);
+						console.log(data.media_id);
 						if (data.media_id){
 							media_id = data.media_id;
 							inputTextField.val(media_id);
@@ -274,7 +250,6 @@ console.log('Pic Puller JS loaded.');
 				return false;
 			}
 		}
-
         return this;
     };
 

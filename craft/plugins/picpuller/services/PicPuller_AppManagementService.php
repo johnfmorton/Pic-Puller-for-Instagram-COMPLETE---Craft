@@ -1,19 +1,13 @@
 <?php
 /**
- * PicPuller plugin for Craft CMS
+ * Pic Puller for Craft CMS
  *
  * PicPuller_PicPuller Service
  *
- * --snip--
- * All of your plugin’s business logic should go in services, including saving data, retrieving data, etc. They
- * provide APIs that your controllers, template variables, and other plugins can interact with.
- *
- * https://craftcms.com/docs/plugins/services
- * --snip--
  *
  * @author    John F Morton
  * @copyright Copyright (c) 2016 John F Morton
- * @link      http://picPuller.com
+ * @link      http://picpuller.com
  * @package   PicPuller
  * @since     2.0.0
  */

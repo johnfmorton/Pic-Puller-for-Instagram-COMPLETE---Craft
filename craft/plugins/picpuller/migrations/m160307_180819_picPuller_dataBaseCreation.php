@@ -19,6 +19,7 @@ class m160307_180819_picPuller_dataBaseCreation extends BaseMigration
             'oauth'        => array('required' => true),
         ), null, true);
 
+        // craftThank()->db->createCommand->dropForeignKey('picpuller_credentials', 'app_id');
         craft()->db->createCommand()->dropTableIfExists('picpuller_credentials');
         craft()->db->createCommand()->dropTableIfExists('picpuller_oauths');
 

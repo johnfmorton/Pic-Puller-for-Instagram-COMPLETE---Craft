@@ -1,19 +1,13 @@
 <?php
 /**
- * PicPuller plugin for Craft CMS
+ * Pic Puller for Craft CMS
  *
  * PicPuller Variable
  *
- * --snip--
- * Craft allows plugins to provide their own template variables, accessible from the {{ craft }} global variable
- * (e.g. {{ craft.pluginName }}).
- *
- * https://craftcms.com/docs/plugins/variables
- * --snip--
  *
  * @author    John F Morton
  * @copyright Copyright (c) 2016 John F Morton
- * @link      http://picPuller.com
+ * @link      http://picpuller.com
  * @package   PicPuller
  * @since     2.0.0
  */
@@ -102,20 +96,5 @@ class PicPullerVariable
 
     public function getUsers() {
         return craft()->picPuller_appManagement->getUsers();
-    }
-     /**
-     * Return the setting for whether the oAuth should be shared across all Craft users
-     * @return BOOL The default is false indicating each user should authorize their own account
-     */
-    public function getShareOauthSetting() {
-        return craft()->plugins->getPlugin('picpuller')->getSettings()->shareoauth;
-    }
-
-    /**
-     * Return the setting for whether the oAuth should be shared across all Craft users
-     * @return BOOL The default is false indicating each user should authorize their own account
-     */
-    public function getSharedOauthUser() {
-        return craft()->plugins->getPlugin('picpuller')->getSettings()->sharedoauthuser;
     }
 }

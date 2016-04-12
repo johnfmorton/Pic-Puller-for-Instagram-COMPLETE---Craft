@@ -1,19 +1,13 @@
 <?php
 /**
- * PicPuller plugin for Craft CMS
+ * Pic Puller for Craft CMS
  *
  * PicPuller_PicPuller Model
  *
- * --snip--
- * Models are containers for data. Just about every time information is passed between services, controllers, and
- * templates in Craft, it’s passed via a model.
- *
- * https://craftcms.com/docs/plugins/models
- * --snip--
  *
  * @author    John F Morton
  * @copyright Copyright (c) 2016 John F Morton
- * @link      http://picPuller.com
+ * @link      http://picpuller.com
  * @package   PicPuller
  * @since     2.0.0
  */

@@ -38,10 +38,14 @@ If you don't already subscribe to **Craft Link List**, please check it out at [h
 
 ### Version History
 
+* Version 2.1.0 (April 11, 2015)
+    - [Added] New "caption_only" variable has been added to "media_recent" and "media" (by ID) functions. It will eliminate captions that are stuffed with hashtags from being so damn ugly.
+    - [Added] New "tags" variable has been added to "media_recent" and "media" (by ID) functions. This is an array of the tags associated with a piece of media.
+    - [Improved] The fieldtype talked too much in the console. It has had a stern talking to about this and will now be quiet. 
 * Version 2.0.0 (March 10, 2015)
-    - Pic Puller 2 is released
-    - Instagram authorization is for the **Pic Puller 2** application on Instagram
-    - Access limited to an authorized Instagram user's media instead of the full scope of public media on Instagram as was the case in version 1 of Pic Puller
+    - [Improved] Pic Puller 2 is released
+    - [Improved] Instagram authorization is for the **Pic Puller 2** application on Instagram
+    - [Fixed]Access limited to an authorized Instagram user's media instead of the full scope of public media on Instagram as was the case in version 1 of Pic Puller
 * Version 1.6.0 (Nov 28, 2015)
     - [Updated] Instagram has removed the Popular Feed from their API and it has now been removed from Pic Puller. See: http://developers.instagram.com/post/133424514006/instagram-platform-update for more information.
     - [Updated] Instagram has removed the User Feed from their API and it has now been removed from Pic Puller (This is the feed you see in the Instagram app on your phone, **not** the *media\_recent* feed of images taken by a single user.)
@@ -254,6 +258,10 @@ link: URL of the media' page on Instagram
 
 caption: the caption provided by the author. Note, it may be left untitled which will return an empty string.
 
+caption_only: the caption provided by the author *minus* any content starting with the first hashtag. For example, if the caption were "Digging into Craft CMS. #craftcms #code #fun", the caption_only function would return "Digging into Craft CMS."
+
+tags: an array of the tags associated with the media
+
 thumbnail: URL to image
 
 thumbnail\_width: width of image in pixels.
@@ -359,6 +367,10 @@ created_time: time stamp of image creation time, Unix timestamp formatted
 link: URL of the images homepage on Instagram
 
 caption: The caption provided by the author. Note, it may be left untitled which will return an empty string.
+
+caption_only: the caption provided by the author *minus* any content starting with the first hashtag. For example, if the caption were "Digging into Craft CMS. #craftcms #code #fun", the caption_only function would return "Digging into Craft CMS."
+
+tags: an array of the tags associated with the media_id
 
 thumbnail: URL to image
 

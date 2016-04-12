@@ -1,6 +1,6 @@
 <?php
 /**
- * PicPuller plugin for Craft CMS
+ * Pic Puller for Craft CMS
  *
  * PicPuller_Feed Service
  *
@@ -175,6 +175,14 @@ class PicPuller_FeedService extends BaseApplicationComponent
 
         $node = $data['data'];
 
+        if( isset($node['caption']['text']) ) {
+            $caption = $node['caption']['text'];
+            $titletohashpattern = '/^[^#]*(?!#)/';
+            preg_match($titletohashpattern, $caption, $captionTitle);
+        }
+
+        $tags = $node['tags'];
+
         $variables[] = array(
             $this->_ig_picpuller_prefix.'type' => $node['type'],
             $this->_ig_picpuller_prefix.'video_low_bandwidth' => isset($node['videos']['low_bandwidth']['url']) ? $node['videos']['low_bandwidth']['url'] : "",
@@ -192,7 +200,9 @@ class PicPuller_FeedService extends BaseApplicationComponent
             $this->_ig_picpuller_prefix.'profile_picture' => $node['user']['profile_picture'],
             $this->_ig_picpuller_prefix.'created_time' => $node['created_time'],
             $this->_ig_picpuller_prefix.'link' => $node['link'],
-            $this->_ig_picpuller_prefix.'caption' => $node['caption']['text'],
+            $this->_ig_picpuller_prefix.'caption' => isset($caption) ? $caption : '',
+            $this->_ig_picpuller_prefix.'caption_only' => isset($captionTitle[0]) ? $captionTitle[0] : '' ,
+            $this->_ig_picpuller_prefix.'tags' => isset($tags) ? $tags : [] ,
             $this->_ig_picpuller_prefix.'low_resolution' => $node['images']['low_resolution']['url'],
             $this->_ig_picpuller_prefix.'low_resolution_width' => isset($node['images']['low_resolution']['width']) ? $node['images']['low_resolution']['width'] : '',
             $this->_ig_picpuller_prefix.'low_resolution_height' => isset($node['images']['low_resolution']['height']) ? $node['images']['low_resolution']['height'] : '',
@@ -213,89 +223,6 @@ class PicPuller_FeedService extends BaseApplicationComponent
         );
         return $variables;
      }
-
-    /**
-     * Media Recent Raw
-     *
-     * This is a non-public function used primarily for testing.
-     * Use at your own risk. It may be eliminated in future versions of Pic Puller.
-     *
-     * @access  public
-     * @param   tag param: 'user_id', the Craft member ID of a user that has authorized the Instagram application
-     * @param   tag param: 'limit', an integer that determines how many images to return
-     * @param   use_stale_cache:
-     * @return  tag data: caption, media_id, next_max_id, low_resolution, thumbnail, standard_resolution, latitude, longitude, link, created_time
-     */
-
-    // public function media_recent_raw($tags = null)
-    // {
-    //     Craft::log('Pic Puller: media_recent_raw');
-    //     $variables = array();
-
-    //     $user_id = isset($tags['user_id']) ? $tags['user_id'] : '';
-
-    //     if ( $user_id == '' ) {
-    //         return $this->_missinguser_idErrorReturn();
-    //     }
-
-    //     $use_stale_cache = isset($tags['use_stale_cache']) ? $tags['use_stale_cache'] : $this->use_stale_cache;
-
-    //     $limit = isset($tags['limit']) ? $tags['limit'] : '';
-
-    //     if($limit != '')
-    //     {
-    //         $limit = "&count=$limit";
-    //     }
-
-    //     $min_id = isset($tags['min_id']) ? $tags['min_id'] : '';
-
-    //     if($min_id != '')
-    //     {
-    //         $min_id = "&min_id=$min_id";
-    //     }
-
-    //     $max_id = isset($tags['max_id']) ? $tags['max_id'] : '';
-
-    //     if($max_id != '')
-    //     {
-    //         $max_id = "&max_id=$max_id";
-    //     }
-
-    //     $ig_user_id = isset($tags['ig_user_id']) ? $tags['ig_user_id'] : $this->_getInstagramId($user_id);
-
-    //     if(!$ig_user_id)
-    //     {
-    //         return $this->_noInstagramIdErrorReturn();
-    //     }
-
-    //     $oauth = $this->_getUserOauth($user_id);
-
-    //     if(!$oauth)
-    //     {
-    //         return $this->_unauthorizedUserErrorReturn();
-    //     }
-
-    //     // set up the MEDIA/RECENT url used by Instagram
-    //     $query_string = "users/{$ig_user_id}/media/recent/?access_token={$oauth}". $limit.$max_id.$min_id;
-
-    //     $data = $this->_fetch_data($query_string, $use_stale_cache);
-
-    //     if ($data['status'] === FALSE ) {
-    //         // No images to return, even from cache, so exit the function and return the error
-    //         // Set up the basic error messages returned by _fetch_data function
-    //         $variables[] = array(
-    //             $this->_ig_picpuller_prefix.'error_type' => $data['error_type'],
-    //             $this->_ig_picpuller_prefix.'error_message' => $data['error_message'],
-    //             $this->_ig_picpuller_prefix.'status' => $data['status']
-    //         );
-    //         return $variables;
-    //     }
-
-    //     $node = $data['data'];
-
-    //     return $data['data'];
-    // }
-
 
     /**
      * Media Recent
@@ -379,6 +306,14 @@ class PicPuller_FeedService extends BaseApplicationComponent
 
         foreach($data['data'] as $node)
         {
+            if( isset($node['caption']['text']) ) {
+                $caption = $node['caption']['text'];
+                $titletohashpattern = '/^[^#]*(?!#)/';
+                preg_match($titletohashpattern, $caption, $captionTitle);
+            }
+
+            $tags = $node['tags'];
+
             $variables[] = array(
                 $this->_ig_picpuller_prefix.'type' => $node['type'],
                 $this->_ig_picpuller_prefix.'video_low_bandwidth' => isset($node['videos']['low_bandwidth']['url']) ? $node['videos']['low_bandwidth']['url'] : "",
@@ -392,7 +327,9 @@ class PicPuller_FeedService extends BaseApplicationComponent
                 $this->_ig_picpuller_prefix.'video_standard_resolution_height' => isset($node['videos']['standard_resolution']['height']) ? $node['videos']['standard_resolution']['height'] : "",
                 $this->_ig_picpuller_prefix.'created_time' => $node['created_time'],
                 $this->_ig_picpuller_prefix.'link' => $node['link'],
-                $this->_ig_picpuller_prefix.'caption' => isset($node['caption']['text']) ? $node['caption']['text'] : '',
+                $this->_ig_picpuller_prefix.'caption' => isset($caption) ? $caption : '',
+                $this->_ig_picpuller_prefix.'caption_only' => isset($captionTitle[0]) ? $captionTitle[0] : '' ,
+                $this->_ig_picpuller_prefix.'tags' => isset($tags) ? $tags : [] ,
                 $this->_ig_picpuller_prefix.'low_resolution' => $node['images']['low_resolution']['url'],
                 $this->_ig_picpuller_prefix.'low_resolution_width' => isset($node['images']['low_resolution']['width']) ? $node['images']['low_resolution']['width'] : '',
                 $this->_ig_picpuller_prefix.'low_resolution_height' => isset($node['images']['low_resolution']['height']) ? $node['images']['low_resolution']['height'] : '',
@@ -416,144 +353,6 @@ class PicPuller_FeedService extends BaseApplicationComponent
         }
         return $variables;
     }
-
-    /**
-     * Recent Media by Tag
-     *
-     * Get a list of recently tagged media. Note that this media is ordered by when the media was tagged with this tag, rather than the order it was posted.
-     * http://instagram.com/developer/endpoints/tags/#get_tags_media_recent
-     *
-     * @access  public
-     * @param   tag param: 'user_id', the Craft member ID of a user that has authorized the Instagram application
-     * @param   tag param: 'limit', an integer that determines how many images to return
-     * @param   use_stale_cache_cache:
-     * @return  tag data: caption, media_id, next_max_id, low_resolution, thumbnail, standard_resolution, latitude, longitude, link, created_time, profile_picture, username, website, full_name, user_id
-     */
-
-    // public function tagged_media($tags = null)
-    // {
-    //     Craft::log('Pic Puller: tagged_media');
-
-    //     $variables = array();
-
-    //     $use_stale_cache = isset($tags['use_stale_cache']) ? $tags['use_stale_cache'] : $this->use_stale_cache;
-
-    //     $variables = array();
-    //     $user_id = isset($tags['user_id']) ? $tags['user_id'] : '';
-
-    //     if ( $user_id == '' ) {
-    //         return $this->_missingUser_idErrorReturn();
-    //     }
-
-    //     $limit = isset($tags['limit']) ? $tags['limit'] : '';
-
-    //     if($limit != '')
-    //     {
-    //         $limit = "&count=$limit";
-    //     }
-
-    //     $min_id = isset($tags['min_id']) ? $tags['min_id'] : '';
-
-    //     if($min_id != '')
-    //     {
-    //         $min_id = "&min_id=$min_id";
-    //     }
-
-    //     $max_id = isset($tags['max_id']) ? $tags['max_id'] : '';
-
-    //     if($max_id != '')
-    //     {
-    //         $max_id = "&max_id=$max_id";
-    //     }
-
-    //     $tag = isset($tags['tag']) ? $tags['tag'] : '';
-
-    //     if($tag == '')
-    //     {
-    //         $variables[] = array(
-    //             $this->_ig_picpuller_prefix.'error_type' => 'MissingReqParameter',
-    //             $this->_ig_picpuller_prefix.'error_message' => 'No tag to search for set for this function',
-    //             $this->_ig_picpuller_prefix.'status' => FALSE
-    //         );
-
-    //         return $variables;
-    //     }
-
-    //     $ig_user_id = $this->_getInstagramId($user_id);
-
-    //     $oauth = $this->_getUserOauth($user_id);
-
-    //     if(!$oauth)
-    //     {
-    //         return $this->_unauthorizedUserErrorReturn();
-    //     }
-
-    //     $query_string = "tags/$tag/media/recent?access_token={$oauth}". $limit.$max_id.$min_id;
-
-    //     $data = $this->_fetch_data($query_string, $use_stale_cache);
-
-    //     if ($data['status'] === FALSE ) {
-    //         // No images to return, even from cache, so exit the function and return the error
-    //         // Set up the basic error messages returned by _fetch_data function
-    //         $variables[] = array(
-    //             $this->_ig_picpuller_prefix.'error_type' => $data['error_type'],
-    //             $this->_ig_picpuller_prefix.'error_message' => $data['error_message'],
-    //             $this->_ig_picpuller_prefix.'status' => $data['status']
-    //         );
-    //         return $variables;
-    //     }
-
-    //     $node = $data['data'];
-
-    //     $next_max_id = '';
-    //     if (isset($data['pagination']['next_max_id'])){
-    //         $next_max_id = $data['pagination']['next_max_id'];
-    //     }
-
-    //     $cacheddata = (isset($data['cacheddata'])) ? 'yes' : 'no';
-    //     foreach($data['data'] as $node)
-    //     {
-    //         $variables[] = array(
-    //             $this->_ig_picpuller_prefix.'type' => $node['type'],
-    //             $this->_ig_picpuller_prefix.'video_low_bandwidth' => isset($node['videos']['low_bandwidth']['url']) ? $node['videos']['low_bandwidth']['url'] : "",
-    //             $this->_ig_picpuller_prefix.'video_low_bandwidth_width' => isset($node['videos']['low_bandwidth']['width']) ? $node['videos']['low_bandwidth']['width'] : "",
-    //             $this->_ig_picpuller_prefix.'video_low_bandwidth_height' => isset($node['videos']['low_bandwidth']['height']) ? $node['videos']['low_bandwidth']['height'] : "",
-    //             $this->_ig_picpuller_prefix.'video_low_resolution' => isset($node['videos']['low_resolution']['url']) ? $node['videos']['low_resolution']['url'] : "",
-    //             $this->_ig_picpuller_prefix.'video_low_resolution_width' => isset($node['videos']['low_resolution']['width']) ? $node['videos']['low_resolution']['width'] : "",
-    //             $this->_ig_picpuller_prefix.'video_low_resolution_height' => isset($node['videos']['low_resolution']['height']) ? $node['videos']['low_resolution']['height'] : "",
-    //             $this->_ig_picpuller_prefix.'video_standard_resolution' => isset($node['videos']['standard_resolution']['url']) ? $node['videos']['standard_resolution']['url'] : "",
-    //             $this->_ig_picpuller_prefix.'video_standard_resolution_width' => isset($node['videos']['standard_resolution']['width']) ? $node['videos']['standard_resolution']['width'] : "",
-    //             $this->_ig_picpuller_prefix.'video_standard_resolution_height' => isset($node['videos']['standard_resolution']['height']) ? $node['videos']['standard_resolution']['height'] : "",
-    //             $this->_ig_picpuller_prefix.'created_time' => $node['created_time'],
-    //             $this->_ig_picpuller_prefix.'link' => $node['link'],
-    //             $this->_ig_picpuller_prefix.'caption' => $node['caption']['text'],
-    //             $this->_ig_picpuller_prefix.'low_resolution' => $node['images']['low_resolution']['url'],
-    //             $this->_ig_picpuller_prefix.'low_resolution_width' => isset($node['images']['low_resolution']['width']) ? $node['images']['low_resolution']['width'] : '',
-    //             $this->_ig_picpuller_prefix.'low_resolution_height' => isset($node['images']['low_resolution']['height']) ? $node['images']['low_resolution']['height'] : '',
-    //             $this->_ig_picpuller_prefix.'thumbnail' => $node['images']['thumbnail']['url'],
-    //             $this->_ig_picpuller_prefix.'thumbnail_width' => isset($node['images']['thumbnail']['width']) ? $node['images']['thumbnail']['width'] : '',
-    //             $this->_ig_picpuller_prefix.'thumbnail_height' => isset($node['images']['thumbnail']['height']) ? $node['images']['thumbnail']['height'] : '',
-    //             $this->_ig_picpuller_prefix.'standard_resolution' => $node['images']['standard_resolution']['url'],
-    //             $this->_ig_picpuller_prefix.'standard_resolution_width' => isset($node['images']['standard_resolution']['width']) ? $node['images']['standard_resolution']['width'] : '',
-    //             $this->_ig_picpuller_prefix.'standard_resolution_height' => isset($node['images']['standard_resolution']['height']) ? $node['images']['standard_resolution']['height'] : '',
-    //             $this->_ig_picpuller_prefix.'latitude' => isset($node['location']['latitude']) ? $node['location']['latitude'] : '',
-    //             $this->_ig_picpuller_prefix.'longitude' => isset($node['location']['longitude']) ? $node['location']['longitude'] : '',
-    //             $this->_ig_picpuller_prefix.'media_id' => $node['id'],
-    //             $this->_ig_picpuller_prefix.'next_max_id' => $next_max_id,
-    //             $this->_ig_picpuller_prefix.'profile_picture' => $node['user']['profile_picture'],
-    //             $this->_ig_picpuller_prefix.'username' => $node['user']['username'],
-    //             $this->_ig_picpuller_prefix.'full_name' => $node['user']['full_name'],
-    //             $this->_ig_picpuller_prefix.'user_id' => $node['user']['id'],
-    //             $this->_ig_picpuller_prefix.'comment_count' => $node['comments']['count'],
-    //             $this->_ig_picpuller_prefix.'likes' => $node['likes']['count'],
-    //             $this->_ig_picpuller_prefix.'cacheddata' => $cacheddata,
-    //             $this->_ig_picpuller_prefix.'error_type' => $data['error_type'],
-    //             $this->_ig_picpuller_prefix.'error_message' => $data['error_message'],
-    //             $this->_ig_picpuller_prefix.'status' => $data['status']
-    //         );
-    //     }
-    //     return $variables;
-    // }
 
     /**
      * Get popular photos from Instagram
@@ -806,7 +605,7 @@ class PicPuller_FeedService extends BaseApplicationComponent
     private function _check_cache($url)
     {
         // Check for cache directory
-        Craft::log('Pic Puller2: Checking Cache');
+        Craft::log('Pic Puller: Checking Cache');
         $cacheDirectory = craft()->path->getCachePath() . '/' . $this->cache_name . '/';
 
         if ( ! IOHelper::folderExists($cacheDirectory)){

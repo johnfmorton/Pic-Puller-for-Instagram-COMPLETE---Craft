@@ -1,15 +1,8 @@
 {% header "Content-Type: application/json" %}
 
-{% set shareoauth = craft.picpuller.getShareOauthSetting %}
+{% set shareoauth = craft.PicPuller.getUserOauthValue(user.id) %}
 
-{% if shareoauth == false %}
-    {% set pp_user = currentUser.id %}
-{% else %}
-    {% set pp_user = craft.picpuller.getSharedOauthUser %}
-{% endif %}
-
-
-{% for instagramdata in craft.PicPuller.media({'user_id' : pp_user,  'use_stale_cache' : true, 'media_id': mediaId }) %}
+{% for instagramdata in craft.PicPuller.media({'user_id' : user.id,  'use_stale_cache' : true, 'media_id': mediaId }) %}
 {% if instagramdata.status is defined and instagramdata.status == 'true' %}
 {% if loop.first %}
 {
