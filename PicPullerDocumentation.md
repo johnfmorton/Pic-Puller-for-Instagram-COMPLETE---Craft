@@ -38,27 +38,27 @@ If you don't already subscribe to **Craft Link List**, please check it out at [h
 
 ### Version History
 
-* Version 2.1.0 (April 11, 2015)
+* Version 2.1.0 (April 11, 2016)
     - [Added] New "caption_only" variable has been added to "media_recent" and "media" (by ID) functions. It will eliminate captions that are stuffed with hashtags from being so damn ugly.
     - [Added] New "tags" variable has been added to "media_recent" and "media" (by ID) functions. This is an array of the tags associated with a piece of media.
     - [Improved] The fieldtype talked too much in the console. It has had a stern talking to about this and will now be quiet. 
-* Version 2.0.0 (March 10, 2015)
+* Version 2.0.0 (March 10, 2016)
     - [Improved] Pic Puller 2 is released
     - [Improved] Instagram authorization is for the **Pic Puller 2** application on Instagram
     - [Fixed]Access limited to an authorized Instagram user's media instead of the full scope of public media on Instagram as was the case in version 1 of Pic Puller
 * Version 1.6.0 (Nov 28, 2015)
     - [Updated] Instagram has removed the Popular Feed from their API and it has now been removed from Pic Puller. See: http://developers.instagram.com/post/133424514006/instagram-platform-update for more information.
-    - [Updated] Instagram has removed the User Feed from their API and it has now been removed from Pic Puller (This is the feed you see in the Instagram app on your phone, **not** the *media\_recent* feed of images taken by a single user.)
+    - [Updated] Instagram has removed the User Feed from their API and it has now been removed from Pic Puller. This is the feed you see in the Instagram app on your phone, **not** the *media\_recent* feed of images taken by a single user.
     - [Updated] Pic Puller has been updated for Craft 2.5 with new icons, links to the online documentation.
     - [Improved] Some of the language in the app has been updated for clarity.
 * Version 1.5.0 (Oct 11, 2015)
     - [Improved] An API change from Instagram allowing for non-square images and videos to be posted added height and width values to data it returns to developers. This data has been added to Pic Puller. See: http://developers.instagram.com/post/128288227716/api-migration-for-landscape-and-portrait-formats for more information.
-    - [IMPROVED] Added the low bandwidth video information to Pic Puller. Look for *video\_low\_bandwidth*, *video\_low\_bandwidth\_width* and *video\_low\_bandwidth\_height* in the documenation.
+    - [IMPROVED] Added the low bandwidth video information to Pic Puller. Look for *video\_low\_bandwidth*, *video\_low\_bandwidth\_width* and *video\_low\_bandwidth\_height* in the documentation.
 * Version 1.4.0 (June 5, 2015)
-    - Improved "media\_recent" and "user". Passing in an Instgram ID in the 'ig\_user\_id' parameter will allow you to pull another user's *public* feed.
+    - Improved "media\_recent" and "user". Passing in an Instagram ID in the 'ig\_user\_id' parameter will allow you to pull another user's *public* feed.
 * Version 1.3.4 (April 24, 2015)
     - Changed CURL cache options to address some users receiving time out errors when accessing Instagram feed.
-    - Improved the Authenticated User screen in Pic Puller to display the Instagram account info for the authorized account. This should help users spot when previoulsy working oAuth tokens are deauthorized by Instagram.
+    - Improved the Authenticated User screen in Pic Puller to display the Instagram account info for the authorized account. This should help users spot when previously working oAuth tokens are deauthorized by Instagram.
 * Version 1.3.3 (March 23, 2015)
     - Fixed errors present in "free" and "client" versions of Craft seen when devMode was set to true. Now settings page of Pic Puller will only display list of admins for shared oAuth when using pro version of Craft.
 * Version 1.3.2 (March 12, 2015)
@@ -78,8 +78,8 @@ If you don't already subscribe to **Craft Link List**, please check it out at [h
     - Cleaned up documentation
 * Version 1.2 RC (Nov 9, 2014)
     - Release candidate
-* Version 1.1 (beta)
-    - Initial release of Pic Puller
+* Version 1.1 (beta) (Nov 4, 2014)
+    - Initial beta release of Pic Puller
 
 ### How to install Pic Puller for Craft
 
