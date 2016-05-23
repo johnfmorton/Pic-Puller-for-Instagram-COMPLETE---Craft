@@ -4,7 +4,6 @@
  *
  * PicPuller_PicPuller Model
  *
- *
  * @author    John F Morton
  * @copyright Copyright (c) 2016 John F Morton
  * @link      http://picpuller.com

@@ -4,7 +4,6 @@
  *
  * Integrate Instagram into Craft CMS
  *
- *
  * @author    John F Morton
  * @copyright Copyright (c) 2016 John F Morton
  * @link      https://picpuller.com
@@ -92,7 +91,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function getVersion()
     {
-        return '2.1.0';
+        return '2.2.0';
     }
 
     /**

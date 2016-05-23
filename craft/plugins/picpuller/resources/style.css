@@ -78,7 +78,6 @@ left: 120px;
     color: #d95949;
 }
 
-
 .igpic_clarification {
     margin: 3em 0 0;
     padding: 1em;
@@ -86,5 +85,4 @@ left: 120px;
     background: #feffe5;
     border: 1px solid #b3b3b3;
     border-radius: 4px;
-    /*box-shadow: 0 0 0px rgba(0,0,0,.1),0 1px 5px rgba(0,0,0,.15);*/
 }
