@@ -13,7 +13,8 @@
             var data = {
                 user_id: "{{ user.id }}",
                 instagram_id: "{{ craft.request.getParam('instagram_id') }}",
-                oauth: "{{ craft.request.getParam('oauth') }}"
+                oauth: "{{ craft.request.getParam('oauth') }}",
+                {{ craft.config.csrfTokenName }}: "{{ craft.request.getParam( craft.config.csrfTokenName ) }}"
             }
             Craft.postActionRequest('PicPuller/authorizations/saveCredentials', data, function(response) {
                 console.log('I heard back from the post action');

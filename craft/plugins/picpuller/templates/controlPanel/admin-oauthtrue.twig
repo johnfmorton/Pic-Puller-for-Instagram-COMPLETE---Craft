@@ -4,6 +4,7 @@
 
 <form method="post" accept-charset="UTF-8" action="">
         <input type="hidden" name="action" value="PicPuller/authorizations/removeOauth">
+        <input type="hidden" name="{{ craft.config.csrfTokenName }}" value="{{ craft.request.csrfToken }}">
         <input type="hidden" name="authorization_id" value="{{ authorization_id }}" />
         <input type="hidden" name="user_id" value="{{ user.id }}" />
         <p>The current logged in user, <em>{{ user.username }}</em>, has saved Instagram authorization credentials.</p>
