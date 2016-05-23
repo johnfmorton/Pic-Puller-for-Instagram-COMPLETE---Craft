@@ -77,7 +77,7 @@ class PicPuller_AuthorizationsController extends BaseController
         $existingOauthId = craft()->db->createCommand()
                 ->select('id')
                 ->from('picpuller_authorizations')
-               ->where(array('and','user_id='.$attributes['user_id']))
+                ->where(array('and','user_id='.$attributes['user_id']))
                 ->queryRow();
         // existingOauthId contains data...
         if ($existingOauthId) {
