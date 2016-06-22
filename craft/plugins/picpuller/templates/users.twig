@@ -18,6 +18,10 @@ users: { label: "Authorized Users", url: url('picpuller/users')}
 
 {% set users = craft.PicPuller.getUsers() %}
 
+{% set shareoauth = craft.picpuller.getShareOauthSetting() %}
+{% set shareoauth_user = craft.picpuller.getSharedOauthUser %}
+{% set shareoauth_user_name = craft.users.id(shareoauth_user).first().username %}
+
 {# Words are hard. #}
 {% if users|length == 1 %}
     {% set userverb = "is" %}
@@ -32,6 +36,12 @@ users: { label: "Authorized Users", url: url('picpuller/users')}
 {% set content %}
 <h2 class='pp'>Authorized users</h2>
 
+{% if shareoauth == true  %}
+        <p>Pic Puller is set to share the Instagram authorization from the Craft CMS user account for <em>{{ shareoauth_user_name }}</em> across all users of this site. As a site admin, you may change this from the <a href="{{ craft.plugins.getPlugin('picpuller').getSettingsUrl }}" title='Pic Puller settings'>settings screen</a>.</p>
+        <p>Instagram authorization credentials must be shown below in order to share them. If credentials are not shown, authorize the the Craft CMS <em>{{ shareoauth_user_name }}</em> account with Instagram for access.</p>
+        {% else %}
+       <p>There {{ userverb }} {{ users|length }} {{ userphrase }} who {{ userverb2 }} authorized this site for access to their Instagram accounts.</p>
+    {% endif %}
 
 <table class="data collapsible">
         <thead>
@@ -45,12 +55,22 @@ users: { label: "Authorized Users", url: url('picpuller/users')}
         </thead>
         <tbody>
             {% for entry in users %}
+                    {% if shareoauth == true and  shareoauth_user == entry.user_id %}
                     <tr>
-                        <td>{{ entry.user_id }}</em></td>
+                        <td>{{ entry.user_id }}</td>
                         <td>{{ entry.firstname}} {{ entry.lastname}} <em>({{ entry.username}})</em></td>
                         <td>{{entry.instagram_id}}</td>
                         <td>{{entry.oauth}}</td>
                     </tr>
+                    {% endif %}
+                    {% if shareoauth == false %}
+                    <tr>
+                        <td>{% if currentUser.id ==  entry.user_id%}&#9734; {% endif %}{{ entry.user_id }}</td>
+                        <td>{{ entry.firstname}} {{ entry.lastname}} <em>({{ entry.username}})</em></td>
+                        <td>{{entry.instagram_id}}</td>
+                        <td>{{entry.oauth}}</td>
+                    </tr>
+                    {% endif %}
             {% endfor %}
         </tbody>
     </table>

@@ -141,7 +141,7 @@
 					$('.type-media').remove();
 					$('.next_loading').remove();
 					var thumbField = $('#pp-thumbs .main .elements');
-					var loadMore = '<div class="igpic igpic_end">' +'END' + '</div>';
+					var loadMore = '<div class="igpic igpic_end">' +''+ '</div>';
 					if (data.meta.nextMaxId !== '') {
 						loadMore = '<div class=" igpic igpic_next type-media btn" data-nextmaxid="'+data.meta.nextMaxId +'"></div>';
 					}

@@ -38,6 +38,16 @@ class PicPullerVariable
         return craft()->picPuller_feed->media($tags);
     }
 
+
+    /**
+     * Get a single piece of media from Instagram
+     * @param  Array  $tags [description]
+     * @return Array  An array of media and user data
+     */
+    public function media_raw($tags = null) {
+        return craft()->picPuller_feed->media_raw($tags);
+    }
+
     /**
      * Get recent media from a single user from Instagram
      * @param  Array  $tags [description]
@@ -45,6 +55,15 @@ class PicPullerVariable
      */
     public function media_recent($tags = null) {
         return craft()->picPuller_feed->media_recent($tags);
+    }
+
+    /**
+     * Get recent media from a single user from Instagram
+     * @param  Array  $tags [description]
+     * @return Array  An array of media and user data
+     */
+    public function media_recent_raw($tags = null) {
+        return craft()->picPuller_feed->media_recent_raw($tags);
     }
 
     /**
@@ -95,5 +114,20 @@ class PicPullerVariable
 
     public function getUsers() {
         return craft()->picPuller_appManagement->getUsers();
+    }
+
+    /**
+     * Return the setting for whether the oAuth should be shared across all Craft users
+     * @return BOOL The default is false indicating each user should authorize their own account
+     */
+    public function getShareOauthSetting() {
+        return craft()->plugins->getPlugin('picpuller')->getSettings()->shareoauth;
+    }
+    /**
+     * Return the setting for whether the oAuth should be shared across all Craft users
+     * @return BOOL The default is false indicating each user should authorize their own account
+     */
+    public function getSharedOauthUser() {
+        return craft()->plugins->getPlugin('picpuller')->getSettings()->sharedoauthuser;
     }
 }

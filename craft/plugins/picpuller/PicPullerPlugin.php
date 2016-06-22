@@ -91,7 +91,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function getVersion()
     {
-        return '2.2.0';
+        return '2.3.0';
     }
 
     /**
@@ -132,9 +132,22 @@ class PicPullerPlugin extends BasePlugin
      *
      * @return bool
      */
-    public function hasCpSection()
-    {
-        return true;
+    public function hasCpSection() {
+        $admin = craft()->userSession->getUser()->admin;
+        $shareoauth = $this->getSettings()->shareoauth;
+        $masteroauthuser = $this->getSettings()->sharedoauthuser;
+        $thisUser = craft()->userSession->getUser()->id;
+        /*
+        If the user is not an admin, i.e. permission is false,
+        and the shareoauth is set to true, then we do not show
+        the global nav element for non-admin users because
+        there is nothing for them to do there.
+         */
+        if ($shareoauth && ($masteroauthuser !==  $thisUser) ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -178,7 +191,8 @@ class PicPullerPlugin extends BasePlugin
     {
         return array(
             'shortname' => array(AttributeType::String, 'label' => 'Short name for Pic Puller 2', 'default' => 'Pic Puller for Craft' ),
-            'someSetting' => array(AttributeType::String, 'label' => 'Some Setting', 'default' => ''),
+            'shareoauth' => array(AttributeType::Bool, 'default' => false),
+            'sharedoauthuser' =>array(AttributeType::Number, 'default' => 1)
         );
     }
 

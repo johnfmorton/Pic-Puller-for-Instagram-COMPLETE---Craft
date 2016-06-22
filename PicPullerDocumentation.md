@@ -38,6 +38,10 @@ If you don't already subscribe to **Craft Link List**, please check it out at [h
 
 ### Version History
 
+* Version 2.3.0 (June 21, 2016)
+    - [Fixed] Added back the unintentionally deleted "shared authorization" feature of Pic Puller. You can now share one Admin user's Instagram Authorization across all users of your site.
+* Version 2.2.0 (May 25, 2016)
+    - [Added] Pic Puller now supports [CSRF Protection](https://craftcms.com/support/csrf-protection), an optional security setting in Craft CMS, when making a request for Instagram access.
 * Version 2.1.0 (April 11, 2016)
     - [Added] New "caption_only" variable has been added to "media_recent" and "media" (by ID) functions. It will eliminate captions that are stuffed with hashtags from being so damn ugly.
     - [Added] New "tags" variable has been added to "media_recent" and "media" (by ID) functions. This is an array of the tags associated with a piece of media.
@@ -116,9 +120,10 @@ These non-admin users will have the ability to authorize and de-authorize Pic Pu
 
 ### Optional behavior for multiple users
 
+![Sharing a single Instagram authorization](screenshots-for-docs/10_sharing-oauth.png)
 As described above, the default behavior of Pic Puller for Craft is for each Craft user to authenticate their Craft account with their Instagram account. 
 
-You can override this default behavior and have a single oAuth authorization be shared amongst all users of the Craft site. The most likely scenario for this feature is of a company site that has many site editors, but only a single Instagram account across the organization. Choosing to use a single Instagram authorization requires that the site developer choose a single user as the master Instagram account holder on the site. This user must be an Admin. The selection of the master Instagram user is made from the Pic Puller settings panel. 
+You can override this default behavior and have a single oAuth authorization be shared amongst all users of the Craft site. The most likely scenario for this feature is of a company site that has many site editors, but only a single Instagram account across the organization. Choosing to use a single Instagram authorization requires that the site developer choose a single user as the master Instagram account holder on the site. **This user must be an Admin.** The selection of the master Instagram user is made from the Pic Puller settings panel. 
 
 Only the selected account holder will see the "Pic Puller for Craft" menu item in the global navigation. This is the menu that allows a user to create and manage the Instagram application and authorization. 
 

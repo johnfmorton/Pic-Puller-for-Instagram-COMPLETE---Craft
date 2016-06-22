@@ -107,6 +107,58 @@ class PicPuller_FeedService extends BaseApplicationComponent
         return $variables;
     }
 
+    /**
+     * Media Raw
+     *
+     * Get information about a single media object.
+     * http://instagram.com/developer/endpoints/media/#get_media
+     *
+     * @access  public
+     * @param   tag param: 'user_id', the Craft member ID of a user that has authorized the Instagram application
+     * @param   tag param: 'media_id', the Instagram media ID of the image to be returned
+     * @param   use_stale_cache:
+     * @return  raw JSON feed from Instagram + Pic Puller cache information
+     */
+    public function media_raw($tags = null)
+    {
+        Craft::log('Pic Puller: media_raw');
+        $variables = array();
+        $use_stale_cache = isset($tags['use_stale_cache']) ? $tags['use_stale_cache'] : $this->use_stale_cache;
+
+        $user_id = isset($tags['user_id']) ? $tags['user_id'] : '';
+
+        if ( $user_id == '' ) {
+            return $this->_missinguser_idErrorReturn();
+        }
+
+
+        $oauth = $this->_getUserOauth($user_id);
+
+        if(!$oauth)
+        {
+            return $this->_unauthorizedUserErrorReturn();
+        }
+
+        $media_id = isset($tags['media_id']) ? $tags['media_id'] : '';
+
+        if($media_id == '')
+        {
+            $variables[] = array(
+                $this->_ig_picpuller_prefix.'error_type' => 'MissingReqParameter',
+                $this->_ig_picpuller_prefix.'error_message' => 'No media_id set for this function',
+                $this->_ig_picpuller_prefix.'status' => FALSE
+            );
+
+            return $variables;
+        }
+
+        // set up the MEDIA url used by Instagram
+        $query_string = "media/{$media_id}?access_token={$oauth}";
+
+        $data = $this->_fetch_data($query_string, $use_stale_cache);
+
+        return JsonHelper::encode($data);
+    }
 
     /**
      * Media
@@ -225,6 +277,86 @@ class PicPuller_FeedService extends BaseApplicationComponent
      }
 
     /**
+     * Media Recent Raw
+     *
+     * Get the most recent media published from a specified Craft user that has authorized the Instagram application
+     * http://instagram.com/developer/endpoints/users/#get_users_media_recent
+     *
+     * @access  public
+     * @param   tag param: 'user_id', the Craft member ID of a user that has authorized the Instagram application
+     * @param   tag param: 'limit', an integer that determines how many images to return
+     * @param   use_stale_cache:
+     * @return  raw JSON feed from Instagram + Pic Puller cache information
+     */
+    public function media_recent_raw($tags = null)
+    {
+        Craft::log('Pic Puller: media_recent_raw');
+        $variables = array();
+
+        $user_id = isset($tags['user_id']) ? $tags['user_id'] : '';
+
+        if ( $user_id == '' ) {
+            return $this->_missinguser_idErrorReturn();
+        }
+
+        $use_stale_cache = isset($tags['use_stale_cache']) ? $tags['use_stale_cache'] : $this->use_stale_cache;
+
+        $limit = isset($tags['limit']) ? $tags['limit'] : '';
+
+        if($limit != '')
+        {
+            $limit = "&count=$limit";
+        }
+
+        $min_id = isset($tags['min_id']) ? $tags['min_id'] : '';
+
+        if($min_id != '')
+        {
+            $min_id = "&min_id=$min_id";
+        }
+
+        $max_id = isset($tags['max_id']) ? $tags['max_id'] : '';
+
+        if($max_id != '')
+        {
+            $max_id = "&max_id=$max_id";
+        }
+
+        $ig_user_id = isset($tags['ig_user_id']) ? $tags['ig_user_id'] : $this->_getInstagramId($user_id);
+
+        if(!$ig_user_id)
+        {
+            return $this->_noInstagramIdErrorReturn();
+        }
+
+        $oauth = $this->_getUserOauth($user_id);
+
+        if(!$oauth)
+        {
+            return $this->_unauthorizedUserErrorReturn();
+        }
+
+        // set up the MEDIA/RECENT url used by Instagram
+        $query_string = "users/{$ig_user_id}/media/recent/?access_token={$oauth}". $limit.$max_id.$min_id;
+
+        $data = $this->_fetch_data($query_string, $use_stale_cache);
+
+        if ($data['status'] === FALSE ) {
+            // No images to return, even from cache, so exit the function and return the error
+            // Set up the basic error messages returned by _fetch_data function
+            $variables[] = array(
+                $this->_ig_picpuller_prefix.'error_type' => $data['error_type'],
+                $this->_ig_picpuller_prefix.'error_message' => $data['error_message'],
+                $this->_ig_picpuller_prefix.'status' => $data['status']
+            );
+            return $variables;
+        }
+
+        return JsonHelper::encode($data);
+
+    }
+
+    /**
      * Media Recent
      *
      * Get the most recent media published from a specified Craft user that has authorized the Instagram application
@@ -236,7 +368,6 @@ class PicPuller_FeedService extends BaseApplicationComponent
      * @param   use_stale_cache:
      * @return  tag data: caption, media_id, next_max_id, low_resolution, thumbnail, standard_resolution, latitude, longitude, link, created_time
      */
-
     public function media_recent($tags = null)
     {
         Craft::log('Pic Puller: media_recent');

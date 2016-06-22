@@ -38,8 +38,17 @@ class PicPuller_LatestWidget extends BaseWidget
     public function getBodyHtml()
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
+        // If PP setting indicate that a single IG authorization is shared,
+        // that affected the "latest" widget as well
+        $shared = craft()->plugins->getPlugin('picpuller')->getSettings()->shareoauth;
+        $sharedOauthUser = craft()->plugins->getPlugin('picpuller')->getSettings()->sharedoauthuser;
 
-        $media_recent = craft()->picPuller_feed->media_recent(array('user_id' => craft()->userSession->user->id, 'limit' => 1));
+        if (!$shared) {
+            $media_recent = craft()->picPuller_feed->media_recent(array('user_id' => craft()->userSession->user->id, 'limit' => 1));
+        } else {
+            $media_recent = craft()->picPuller_feed->media_recent(array('user_id' => $sharedOauthUser, 'limit' => 1));
+        }
+
         $renderedTemplate = craft()->templates->render('picpuller/widgets/latest',  array( 'media_recent' => $media_recent) );
 
         return $renderedTemplate;
