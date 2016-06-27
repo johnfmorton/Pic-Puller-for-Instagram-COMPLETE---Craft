@@ -38,6 +38,8 @@ If you don't already subscribe to **Craft Link List**, please check it out at [h
 
 ### Version History
 
+* Version 2.3.1 (June 27, 2016)
+    - [Fixed] Fixed 404 errors on the settings page.
 * Version 2.3.0 (June 21, 2016)
     - [Fixed] Added back the unintentionally deleted "shared authorization" feature of Pic Puller. You can now share one Admin user's Instagram Authorization across all users of your site.
 * Version 2.2.0 (May 25, 2016)
