@@ -38,6 +38,8 @@ If you don't already subscribe to **Craft Link List**, please check it out at [h
 
 ### Version History
 
+* Version 2.3.2 (Aug 14, 2016)
+    - [Fixed] Data validation updated to catch addition error possibility. (Thanks, Marion Newlevant!)
 * Version 2.3.1 (June 27, 2016)
     - [Fixed] Fixed 404 errors on the settings page.
 * Version 2.3.0 (June 21, 2016)
