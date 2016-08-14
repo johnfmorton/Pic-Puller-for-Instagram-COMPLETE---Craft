@@ -703,19 +703,17 @@ class PicPuller_FeedService extends BaseApplicationComponent
                         'error_type' =>  (isset($meta['error_type']) ? $meta['error_type'] : 'NoCodeReturned')
                     );
                 }
-                // MSttt add
-                //
-                // else {
-                //     $data = array();
-                //     $error_array = array(
-                //             'status' => FALSE,
-                //             'code' => (isset($meta['code']) ? $meta['code'] : '000' ),
-                //             'error_message' => (isset($meta['error_message']) ? $meta['error_message'] : 'No error message provided by Instagram. No cached data available.' ),
-                //             'error_type' =>  (isset($meta['error_type']) ? $meta['error_type'] : 'NoCodeReturned')
-                //             );
-                // }
-                //
-                // end MSttt add
+                else {
+                    $data = array();
+                    $data['cacheddata'] = FALSE;
+                    $data['code'] = (isset($meta['code']) ? $meta['code'] : '000' );
+                    $error_array = array(
+                            'status' => FALSE,
+                            'code' => (isset($meta['code']) ? $meta['code'] : '000' ),
+                            'error_message' => (isset($meta['error_message']) ? $meta['error_message'] : 'No error message provided by Instagram. No cached data available.' ),
+                            'error_type' =>  (isset($meta['error_type']) ? $meta['error_type'] : 'NoCodeReturned')
+                            );
+                }
             }
             else {
                 $data['cacheddata'] = FALSE;
