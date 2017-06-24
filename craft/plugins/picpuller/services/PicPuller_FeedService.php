@@ -18,6 +18,7 @@ class PicPuller_FeedService extends BaseApplicationComponent
 
     // This is the URL for v1 of the Instagram API
     const IG_API_URL = 'https://api.instagram.com/v1/';
+    // const IG_API_URL = 'https://api.instagramERRROR.com/v1/';
 
     private $cache_name = 'picpuller';
     private $_ig_picpuller_prefix = '';
@@ -627,8 +628,9 @@ class PicPuller_FeedService extends BaseApplicationComponent
     {
         $options = array(
                     'debug' => false,
+                    'exceptions' => true,
                     'CURLOPT_RETURNTRANSFER' => 1,
-                    'CURLOPT_SSL_VERIFYPEER' => false,
+                    'CURLOPT_SSL_VERIFYPEER' => true,
                     'CURLOPT_TIMEOUT_MS' => 1000,
                     'CURLOPT_NOSIGNAL' => 1,
                 );
@@ -637,17 +639,23 @@ class PicPuller_FeedService extends BaseApplicationComponent
         try
         {
             $response = $request->send();
+			$body = JsonHelper::decode($response->getBody());
+
+			$valid_data = $this->_validate_data($body, $url, $use_stale_cache);
+			return $valid_data;
         }
-        catch (\Guzzle\Http\Exception\BadResponseException $e)
+        catch (\Exception $e)
         {
-            Craft::log('The request to '.self::IG_API_URL.$url.' failed: '.$e->getMessage(), LogLevel::Warning, false, 'PicPuller');
-            $response = $e->getResponse();
-        }
+            Craft::log($e);
+            $error['status'] = false;
+            $error['code'] = '000';
+            $error['error_type'] = 'HTTP_error';
+            $error['error_message'] = 'The Instagram API did not return a response.';
 
-        $body = JsonHelper::decode($response->getBody());
+            return $error;
+        } 
 
-        $valid_data = $this->_validate_data($body, $url, $use_stale_cache);
-        return $valid_data;
+
     }
 
     /**
