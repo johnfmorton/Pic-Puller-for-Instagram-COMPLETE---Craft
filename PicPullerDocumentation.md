@@ -37,7 +37,8 @@ Thanks - John
 If you don't already subscribe to **Craft Link List**, please check it out at [http://craftlinklist.com](#). It's free and will keep you up-to-date on the latest links from the Craft community. 
 
 ### Version History
-
+* Version 2.3.3 (June 24, 2017)
+    - [Fixed] The feed service now handled bad URLs calls to Instagram and returns errors instead of simply failing. 
 * Version 2.3.2 (Aug 14, 2016)
     - [Fixed] Data validation updated to catch additional error possibility. (Thanks, Marion Newlevant!)
 * Version 2.3.1 (June 27, 2016)
