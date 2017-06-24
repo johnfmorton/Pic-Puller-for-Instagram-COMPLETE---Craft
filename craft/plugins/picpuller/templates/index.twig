@@ -4,11 +4,10 @@
 
 {% set title = "Pic Puller for Craft"|t %}
 
-{% set userOauth = craft.PicPuller.getUserOauthValue(user.id) %}
+{% set userOauth = craft.PicPuller.getUserOauthValue(currentUser.id) %}
 
-{% if user.admin %}
+{% if currentUser.admin %}
 {% set tabs = {
-
     setup: { label: "Account"|t, url: url('picpuller') },
     users: { label: "Authorized Users", url: url('picpuller/users')}
 
