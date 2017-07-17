@@ -37,6 +37,8 @@ Thanks - John
 If you don't already subscribe to **Craft Link List**, please check it out at [http://craftlinklist.com](#). It's free and will keep you up-to-date on the latest links from the Craft community. 
 
 ### Version History
+* Version 2.3.4 (July 17, 2017)
+    - [Fixed] FeedService array syntax changed back to old array sytax for PHP 5.3.x compatibility
 * Version 2.3.3 (June 24, 2017)
     - [Fixed] The feed service now handled bad URLs calls to Instagram and returns errors instead of simply failing. 
 * Version 2.3.2 (Aug 14, 2016)
