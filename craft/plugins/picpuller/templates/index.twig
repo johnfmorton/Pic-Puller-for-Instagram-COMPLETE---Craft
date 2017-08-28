@@ -6,7 +6,7 @@
 
 {% set userOauth = craft.PicPuller.getUserOauthValue(currentUser.id) %}
 
-{% if currentUser.admin %}
+{% if currentUser.admin and craft.app.getEdition() == 2 %}
 {% set tabs = {
     setup: { label: "Account"|t, url: url('picpuller') },
     users: { label: "Authorized Users", url: url('picpuller/users')}
