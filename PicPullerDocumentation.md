@@ -201,6 +201,8 @@ profile\_picture: URL to the profile image of the user
 
 full\_name: the full name provided by the user on Instagram
 
+cacheddata: a BOOLEAN of TRUE (1) is returned when request is using cached data. 
+
 counts\_media: the total number of images in this user’s Instagram feed
 
 counts\_followed\_by: the number of users who follow this user on Instagram
@@ -268,7 +270,9 @@ media\_id: the Instagram unique media ID for the image or video
 
 created\_time: time stamp of image creation time, Unix timestamp formatted
 
-link: URL of the media' page on Instagram
+link: URL of the media's page on Instagram
+
+cacheddata: a BOOLEAN of TRUE (1) is returned when request is using cached data. 
 
 caption: the caption provided by the author. Note, it may be left untitled which will return an empty string.
 
@@ -378,7 +382,9 @@ status: a BOOLEAN of TRUE (1) is returned when Instagram media data is returned,
 
 created_time: time stamp of image creation time, Unix timestamp formatted
 
-link: URL of the images homepage on Instagram
+link: URL of the image's homepage on Instagram
+
+cacheddata: a BOOLEAN of TRUE (1) is returned when request is using cached data. 
 
 caption: The caption provided by the author. Note, it may be left untitled which will return an empty string.
 
