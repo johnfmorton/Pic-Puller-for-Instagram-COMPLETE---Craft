@@ -37,6 +37,8 @@ Thanks - John
 If you don't already subscribe to **Craft Link List**, please check it out at [http://craftlinklist.com](#). It's free and will keep you up-to-date on the latest links from the Craft community. 
 
 ### Version History
+* Version 2.3.6 (Feb 12, 2018)
+    - [Fixed] Updating to Craft 2.6.3006 would cause the Image Browser to stop working due to a change in the included jQuery. Pic Puller 2.3.6 addresses this problem.
 * Version 2.3.5 (Aug 28, 2017)
     - [Fixed] Fixed error where Users tab was showing up for non-Pro Craft editions, which caused a Twig error. Only Craft Pro Edition can share oAuth
 * Version 2.3.4 (July 17, 2017)
