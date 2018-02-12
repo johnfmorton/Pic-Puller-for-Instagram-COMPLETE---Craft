@@ -6,7 +6,7 @@
 
     $.fn.imagebrowser = function() {
 		var picPullerModal;
-		var theButton = $(this.selector + '-field .btn');
+		var theButton = $("#" + picpuller.fieldId + " .btn");
 		var inputTextField = $("#" + picpuller.fieldId + " input");
 		var previewField = $("#" + picpuller.fieldId + " .igpp.preview");
 		var lookupBt = $("#" + picpuller.fieldId + " .igpp.lookup");
