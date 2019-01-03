@@ -670,7 +670,14 @@ class PicPuller_FeedService extends BaseApplicationComponent
      */
 
     private function _validate_data($data, $url, $use_stale_cache){
-        $meta = $data['meta'];
+        if ( array_key_exists('meta', $data) ){
+            $meta = $data['meta'];
+        } else {
+            // Sometimes the Instagram returns a malformed JSON object
+            // without the expected meta object
+            $meta['code'] = false;
+        }
+
         if ($meta['code'] == 200)
         {
             // There is an outlying chance that IG says 200, but the data array is empty.
@@ -695,7 +702,7 @@ class PicPuller_FeedService extends BaseApplicationComponent
                 $this->_write_cache($data, $url);
             }
         }
-        else
+        else // we didn't get the 200 code, so try to deal with that circumstance
         {
             if ($use_stale_cache == TRUE)
             {
@@ -724,6 +731,8 @@ class PicPuller_FeedService extends BaseApplicationComponent
                 }
             }
             else {
+                // The PP tags indicated that stale data was not supposed to be used
+                // so return an error
                 $data['cacheddata'] = FALSE;
                 $data['code'] = (isset($meta['code']) ? $meta['code'] : '000' );
                 $error_array = array(

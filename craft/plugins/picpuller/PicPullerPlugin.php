@@ -91,7 +91,7 @@ class PicPullerPlugin extends BasePlugin
      */
     public function getVersion()
     {
-        return '2.3.6';
+        return '2.3.7';
     }
 
     /**
